@@ -1,38 +1,245 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="nl">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My Page</title>
+  <title>⚔️ Roleplay Character Sheet</title>
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
-      font-family: system-ui, -apple-system, sans-serif;
-      line-height: 1.6;
-      color: #333;
-      max-width: 800px;
-      margin: 2rem auto;
-      padding: 0 1rem;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #1a1a2e;
+      color: #e0e0e0;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      padding: 2rem 1rem;
+    }
+
+    .sheet {
+      background: #16213e;
+      border: 2px solid #e94560;
+      border-radius: 12px;
+      max-width: 700px;
+      width: 100%;
+      padding: 2rem;
+      box-shadow: 0 0 30px rgba(233, 69, 96, 0.2);
     }
 
     h1 {
-      margin-bottom: 1rem;
+      text-align: center;
+      color: #e94560;
+      font-size: 1.8rem;
+      margin-bottom: 0.3rem;
+      text-shadow: 0 0 10px rgba(233, 69, 96, 0.5);
     }
 
-    p {
-      margin-bottom: 1rem;
+    .subtitle {
+      text-align: center;
+      color: #888;
+      font-style: italic;
+      margin-bottom: 2rem;
+    }
+
+    .section {
+      margin-bottom: 1.5rem;
+    }
+
+    .section h2 {
+      color: #e94560;
+      border-bottom: 1px solid #333;
+      padding-bottom: 0.3rem;
+      margin-bottom: 0.8rem;
+      font-size: 1.1rem;
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.6rem;
+    }
+
+    .info-grid label {
+      color: #aaa;
+      font-size: 0.85rem;
+    }
+
+    .info-grid input, .info-grid select {
+      background: #0f3460;
+      border: 1px solid #333;
+      color: #fff;
+      padding: 0.4rem 0.6rem;
+      border-radius: 6px;
+      font-size: 0.95rem;
+      width: 100%;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.8rem;
+    }
+
+    .stat {
+      background: #0f3460;
+      border-radius: 8px;
+      padding: 0.8rem;
+      text-align: center;
+    }
+
+    .stat-name {
+      font-size: 0.75rem;
+      color: #e94560;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .stat input {
+      background: transparent;
+      border: none;
+      color: #fff;
+      font-size: 1.8rem;
+      font-weight: bold;
+      text-align: center;
+      width: 100%;
+      outline: none;
+    }
+
+    textarea {
+      background: #0f3460;
+      border: 1px solid #333;
+      color: #fff;
+      padding: 0.6rem;
+      border-radius: 6px;
+      width: 100%;
+      font-family: inherit;
+      font-size: 0.95rem;
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    input:focus, textarea:focus, select:focus {
+      border-color: #e94560;
+      outline: none;
+    }
+
+    .hp-bar {
+      background: #333;
+      border-radius: 10px;
+      height: 24px;
+      overflow: hidden;
+      margin-top: 0.5rem;
+    }
+
+    .hp-fill {
+      background: linear-gradient(90deg, #e94560, #ff6b6b);
+      height: 100%;
+      width: 75%;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      font-weight: bold;
+      transition: width 0.3s;
     }
   </style>
 </head>
 <body>
 
-  <h1>Hello, World!</h1>
-  <p>Start building your page here.</p>
+  <div class="sheet">
+    <h1>⚔️ Character Sheet</h1>
+    <p class="subtitle">Vul je personage in</p>
+
+    <!-- Basis Info -->
+    <div class="section">
+      <h2>📜 Basis Informatie</h2>
+      <div class="info-grid">
+        <div>
+          <label>Naam</label>
+          <input type="text" placeholder="Bijv. Arion">
+        </div>
+        <div>
+          <label>Leeftijd</label>
+          <input type="number" placeholder="Bijv. 27">
+        </div>
+        <div>
+          <label>Ras</label>
+          <select>
+            <option>Mens</option>
+            <option>Elf</option>
+            <option>Dwerg</option>
+            <option>Ork</option>
+            <option>Draakgeboren</option>
+            <option>Anders</option>
+          </select>
+        </div>
+        <div>
+          <label>Klasse</label>
+          <select>
+            <option>Krijger</option>
+            <option>Magiër</option>
+            <option>Schurk</option>
+            <option>Genezer</option>
+            <option>Boogschutter</option>
+            <option>Anders</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- HP -->
+    <div class="section">
+      <h2>❤️ Levenspunten</h2>
+      <div class="hp-bar">
+        <div class="hp-fill">75 / 100 HP</div>
+      </div>
+    </div>
+
+    <!-- Stats -->
+    <div class="section">
+      <h2>📊 Statistieken</h2>
+      <div class="stats-grid">
+        <div class="stat">
+          <div class="stat-name">Kracht</div>
+          <input type="number" value="14">
+        </div>
+        <div class="stat">
+          <div class="stat-name">Behendigheid</div>
+          <input type="number" value="12">
+        </div>
+        <div class="stat">
+          <div class="stat-name">Intelligentie</div>
+          <input type="number" value="16">
+        </div>
+        <div class="stat">
+          <div class="stat-name">Uithouding</div>
+          <input type="number" value="10">
+        </div>
+        <div class="stat">
+          <div class="stat-name">Charisma</div>
+          <input type="number" value="13">
+        </div>
+        <div class="stat">
+          <div class="stat-name">Geluk</div>
+          <input type="number" value="8">
+        </div>
+      </div>
+    </div>
+
+    <!-- Achtergrond -->
+    <div class="section">
+      <h2>📖 Achtergrond</h2>
+      <textarea placeholder="Beschrijf het verleden van je personage..."></textarea>
+    </div>
+
+    <!-- Uitrusting -->
+    <div class="section">
+      <h2>🎒 Uitrusting</h2>
+      <textarea placeholder="Zwaard, schild, toverdrank..."></textarea>
+    </div>
+  </div>
 
 </body>
 </html>
