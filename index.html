@@ -4,242 +4,881 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>⚔️ Roleplay Character Sheet</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=MedievalSharp&display=swap" rel="stylesheet">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: #1a1a2e;
-      color: #e0e0e0;
+      font-family: 'Cormorant Garamond', serif;
+      background: #0a0a0f;
+      color: #d4c5a9;
       min-height: 100vh;
       display: flex;
       justify-content: center;
       padding: 2rem 1rem;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background:
+        radial-gradient(ellipse at 20% 50%, rgba(139, 69, 19, 0.08) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 20%, rgba(184, 134, 11, 0.06) 0%, transparent 50%),
+        radial-gradient(ellipse at 50% 80%, rgba(139, 0, 0, 0.05) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Floating particles */
+    body::after {
+      content: '';
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      top: 0; left: 0;
+      background-image:
+        radial-gradient(1px 1px at 10% 20%, rgba(255, 215, 0, 0.3), transparent),
+        radial-gradient(1px 1px at 30% 60%, rgba(255, 215, 0, 0.2), transparent),
+        radial-gradient(1px 1px at 50% 10%, rgba(255, 215, 0, 0.3), transparent),
+        radial-gradient(1px 1px at 70% 80%, rgba(255, 215, 0, 0.2), transparent),
+        radial-gradient(1px 1px at 90% 40%, rgba(255, 215, 0, 0.3), transparent),
+        radial-gradient(1.5px 1.5px at 15% 85%, rgba(255, 215, 0, 0.15), transparent),
+        radial-gradient(1.5px 1.5px at 85% 15%, rgba(255, 215, 0, 0.15), transparent);
+      animation: twinkle 4s ease-in-out infinite alternate;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    @keyframes twinkle {
+      0% { opacity: 0.5; }
+      100% { opacity: 1; }
     }
 
     .sheet {
-      background: #16213e;
-      border: 2px solid #e94560;
-      border-radius: 12px;
-      max-width: 700px;
+      position: relative;
+      z-index: 1;
+      background:
+        linear-gradient(135deg, rgba(20, 15, 10, 0.95), rgba(30, 22, 15, 0.98), rgba(20, 15, 10, 0.95));
+      border: 1px solid rgba(184, 134, 11, 0.3);
+      border-radius: 4px;
+      max-width: 750px;
       width: 100%;
-      padding: 2rem;
-      box-shadow: 0 0 30px rgba(233, 69, 96, 0.2);
+      padding: 2.5rem;
+      box-shadow:
+        0 0 60px rgba(0, 0, 0, 0.8),
+        inset 0 0 80px rgba(0, 0, 0, 0.3),
+        0 0 15px rgba(184, 134, 11, 0.1);
+    }
+
+    .sheet::before {
+      content: '';
+      position: absolute;
+      top: 8px; left: 8px; right: 8px; bottom: 8px;
+      border: 1px solid rgba(184, 134, 11, 0.15);
+      border-radius: 2px;
+      pointer-events: none;
+    }
+
+    .sheet::after {
+      content: '';
+      position: absolute;
+      top: 14px; left: 14px; right: 14px; bottom: 14px;
+      border: 1px solid rgba(184, 134, 11, 0.08);
+      border-radius: 2px;
+      pointer-events: none;
+    }
+
+    /* Corner ornaments */
+    .corner {
+      position: absolute;
+      width: 40px;
+      height: 40px;
+      border-color: rgba(184, 134, 11, 0.4);
+      border-style: solid;
+    }
+    .corner-tl { top: 20px; left: 20px; border-width: 2px 0 0 2px; }
+    .corner-tr { top: 20px; right: 20px; border-width: 2px 2px 0 0; }
+    .corner-bl { bottom: 20px; left: 20px; border-width: 0 0 2px 2px; }
+    .corner-br { bottom: 20px; right: 20px; border-width: 0 2px 2px 0; }
+
+    .header {
+      text-align: center;
+      margin-bottom: 2rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid rgba(184, 134, 11, 0.2);
+      position: relative;
+    }
+
+    .header::after {
+      content: '⟡ ⟡ ⟡';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(20, 15, 10, 1);
+      padding: 0 1rem;
+      color: rgba(184, 134, 11, 0.5);
+      font-size: 0.7rem;
+      letter-spacing: 8px;
+    }
+
+    .header .icon {
+      font-size: 2.5rem;
+      display: block;
+      margin-bottom: 0.5rem;
+      filter: drop-shadow(0 0 8px rgba(184, 134, 11, 0.3));
     }
 
     h1 {
-      text-align: center;
-      color: #e94560;
-      font-size: 1.8rem;
-      margin-bottom: 0.3rem;
-      text-shadow: 0 0 10px rgba(233, 69, 96, 0.5);
+      font-family: 'Cinzel', serif;
+      color: #b8860b;
+      font-size: 2rem;
+      font-weight: 900;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      text-shadow:
+        0 0 20px rgba(184, 134, 11, 0.3),
+        0 2px 4px rgba(0, 0, 0, 0.5);
     }
 
     .subtitle {
-      text-align: center;
-      color: #888;
+      color: rgba(212, 197, 169, 0.5);
       font-style: italic;
-      margin-bottom: 2rem;
+      font-size: 1rem;
+      margin-top: 0.3rem;
+      letter-spacing: 2px;
     }
 
     .section {
-      margin-bottom: 1.5rem;
+      margin-bottom: 2rem;
+      animation: fadeIn 0.6s ease-out both;
+    }
+
+    .section:nth-child(2) { animation-delay: 0.1s; }
+    .section:nth-child(3) { animation-delay: 0.2s; }
+    .section:nth-child(4) { animation-delay: 0.3s; }
+    .section:nth-child(5) { animation-delay: 0.4s; }
+    .section:nth-child(6) { animation-delay: 0.5s; }
+    .section:nth-child(7) { animation-delay: 0.6s; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     .section h2 {
-      color: #e94560;
-      border-bottom: 1px solid #333;
-      padding-bottom: 0.3rem;
-      margin-bottom: 0.8rem;
+      font-family: 'Cinzel', serif;
+      color: #b8860b;
+      font-size: 0.9rem;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .section h2::before,
+    .section h2::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(184, 134, 11, 0.3), transparent);
+    }
+
+    .section h2 .icon {
       font-size: 1.1rem;
     }
 
     .info-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 0.6rem;
+      gap: 1rem;
     }
 
-    .info-grid label {
-      color: #aaa;
-      font-size: 0.85rem;
+    .field {
+      position: relative;
     }
 
-    .info-grid input, .info-grid select {
-      background: #0f3460;
-      border: 1px solid #333;
-      color: #fff;
-      padding: 0.4rem 0.6rem;
-      border-radius: 6px;
-      font-size: 0.95rem;
+    .field label {
+      display: block;
+      font-family: 'Cinzel', serif;
+      color: rgba(184, 134, 11, 0.7);
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 0.4rem;
+    }
+
+    .field input, .field select {
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(184, 134, 11, 0.15);
+      color: #d4c5a9;
+      padding: 0.6rem 0.8rem;
+      border-radius: 3px;
+      font-size: 1rem;
+      font-family: 'Cormorant Garamond', serif;
       width: 100%;
+      transition: all 0.3s ease;
     }
 
+    .field input:hover, .field select:hover {
+      border-color: rgba(184, 134, 11, 0.3);
+    }
+
+    .field input:focus, .field select:focus {
+      border-color: rgba(184, 134, 11, 0.6);
+      outline: none;
+      box-shadow: 0 0 15px rgba(184, 134, 11, 0.1), inset 0 0 10px rgba(184, 134, 11, 0.05);
+      background: rgba(0, 0, 0, 0.4);
+    }
+
+    .field select option {
+      background: #1a1510;
+      color: #d4c5a9;
+    }
+
+    /* Level badge */
+    .level-badge {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 1.5rem auto;
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      border: 2px solid rgba(184, 134, 11, 0.4);
+      background: radial-gradient(circle, rgba(184, 134, 11, 0.1), transparent);
+      position: relative;
+    }
+
+    .level-badge::before {
+      content: 'LEVEL';
+      position: absolute;
+      top: -8px;
+      font-family: 'Cinzel', serif;
+      font-size: 0.5rem;
+      letter-spacing: 3px;
+      color: rgba(184, 134, 11, 0.6);
+      background: rgba(20, 15, 10, 1);
+      padding: 0 0.5rem;
+    }
+
+    .level-badge input {
+      background: transparent;
+      border: none;
+      color: #b8860b;
+      font-family: 'Cinzel', serif;
+      font-size: 2rem;
+      font-weight: 900;
+      text-align: center;
+      width: 50px;
+      outline: none;
+      text-shadow: 0 0 15px rgba(184, 134, 11, 0.4);
+    }
+
+    /* HP Section */
+    .hp-container {
+      position: relative;
+      margin: 0.5rem 0;
+    }
+
+    .hp-labels {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.5rem;
+      font-family: 'Cinzel', serif;
+      font-size: 0.7rem;
+      letter-spacing: 1px;
+      color: rgba(184, 134, 11, 0.6);
+    }
+
+    .hp-bar {
+      background: rgba(0, 0, 0, 0.4);
+      border: 1px solid rgba(139, 0, 0, 0.3);
+      border-radius: 20px;
+      height: 28px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .hp-fill {
+      background: linear-gradient(90deg, #8b0000, #b22222, #dc143c);
+      height: 100%;
+      width: 75%;
+      border-radius: 20px;
+      position: relative;
+      transition: width 0.5s ease;
+      box-shadow: 0 0 20px rgba(139, 0, 0, 0.4), inset 0 -2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    .hp-fill::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 40%;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.1), transparent);
+      border-radius: 20px 20px 0 0;
+    }
+
+    .hp-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-family: 'Cinzel', serif;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #fff;
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+      letter-spacing: 1px;
+    }
+
+    /* XP Bar */
+    .xp-bar {
+      background: rgba(0, 0, 0, 0.4);
+      border: 1px solid rgba(184, 134, 11, 0.2);
+      border-radius: 20px;
+      height: 14px;
+      overflow: hidden;
+      margin-top: 1rem;
+    }
+
+    .xp-fill {
+      background: linear-gradient(90deg, #8b6914, #b8860b, #daa520);
+      height: 100%;
+      width: 45%;
+      border-radius: 20px;
+      box-shadow: 0 0 10px rgba(184, 134, 11, 0.3);
+      position: relative;
+    }
+
+    .xp-fill::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 40%;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.15), transparent);
+      border-radius: 20px 20px 0 0;
+    }
+
+    /* Stats */
     .stats-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 0.8rem;
+      gap: 1rem;
     }
 
     .stat {
-      background: #0f3460;
-      border-radius: 8px;
-      padding: 0.8rem;
+      background: rgba(0, 0, 0, 0.25);
+      border: 1px solid rgba(184, 134, 11, 0.15);
+      border-radius: 4px;
+      padding: 1rem 0.5rem;
       text-align: center;
+      position: relative;
+      transition: all 0.3s ease;
+    }
+
+    .stat:hover {
+      border-color: rgba(184, 134, 11, 0.4);
+      background: rgba(0, 0, 0, 0.35);
+      box-shadow: 0 0 20px rgba(184, 134, 11, 0.08);
+      transform: translateY(-2px);
     }
 
     .stat-name {
-      font-size: 0.75rem;
-      color: #e94560;
+      font-family: 'Cinzel', serif;
+      font-size: 0.6rem;
+      color: rgba(184, 134, 11, 0.7);
       text-transform: uppercase;
-      letter-spacing: 1px;
+      letter-spacing: 2px;
+      margin-bottom: 0.3rem;
     }
 
     .stat input {
       background: transparent;
       border: none;
-      color: #fff;
-      font-size: 1.8rem;
-      font-weight: bold;
+      color: #d4c5a9;
+      font-family: 'Cinzel', serif;
+      font-size: 2rem;
+      font-weight: 700;
       text-align: center;
       width: 100%;
       outline: none;
+      transition: color 0.3s;
     }
 
-    textarea {
-      background: #0f3460;
-      border: 1px solid #333;
-      color: #fff;
-      padding: 0.6rem;
-      border-radius: 6px;
-      width: 100%;
-      font-family: inherit;
+    .stat:hover input {
+      color: #b8860b;
+    }
+
+    .stat-mod {
+      font-size: 0.8rem;
+      color: rgba(184, 134, 11, 0.5);
+      margin-top: 0.2rem;
+    }
+
+    /* Skills */
+    .skills-list {
+      list-style: none;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.4rem;
+    }
+
+    .skills-list li {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.4rem 0.6rem;
+      border-radius: 3px;
+      transition: background 0.3s;
+      cursor: default;
+    }
+
+    .skills-list li:hover {
+      background: rgba(184, 134, 11, 0.05);
+    }
+
+    .skills-list input[type="checkbox"] {
+      appearance: none;
+      width: 16px;
+      height: 16px;
+      border: 1px solid rgba(184, 134, 11, 0.3);
+      border-radius: 2px;
+      background: rgba(0, 0, 0, 0.3);
+      cursor: pointer;
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .skills-list input[type="checkbox"]:checked {
+      background: rgba(184, 134, 11, 0.3);
+      border-color: rgba(184, 134, 11, 0.6);
+    }
+
+    .skills-list input[type="checkbox"]:checked::after {
+      content: '✦';
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      color: #b8860b;
+      font-size: 0.6rem;
+    }
+
+    .skills-list span {
       font-size: 0.95rem;
+      color: rgba(212, 197, 169, 0.7);
+    }
+
+    .skills-list input[type="checkbox"]:checked + span {
+      color: #d4c5a9;
+    }
+
+    /* Textarea */
+    textarea {
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(184, 134, 11, 0.15);
+      color: #d4c5a9;
+      padding: 0.8rem 1rem;
+      border-radius: 3px;
+      width: 100%;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      line-height: 1.6;
       resize: vertical;
-      min-height: 80px;
+      min-height: 100px;
+      transition: all 0.3s ease;
     }
 
-    input:focus, textarea:focus, select:focus {
-      border-color: #e94560;
+    textarea:hover {
+      border-color: rgba(184, 134, 11, 0.3);
+    }
+
+    textarea:focus {
+      border-color: rgba(184, 134, 11, 0.5);
       outline: none;
+      box-shadow: 0 0 15px rgba(184, 134, 11, 0.08);
     }
 
-    .hp-bar {
-      background: #333;
-      border-radius: 10px;
-      height: 24px;
-      overflow: hidden;
-      margin-top: 0.5rem;
+    textarea::placeholder {
+      color: rgba(212, 197, 169, 0.3);
+      font-style: italic;
     }
 
-    .hp-fill {
-      background: linear-gradient(90deg, #e94560, #ff6b6b);
-      height: 100%;
-      width: 75%;
-      border-radius: 10px;
+    .field input::placeholder {
+      color: rgba(212, 197, 169, 0.3);
+      font-style: italic;
+    }
+
+    /* Inventory */
+    .inventory-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.5rem;
+    }
+
+    .inv-slot {
+      aspect-ratio: 1;
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(184, 134, 11, 0.1);
+      border-radius: 4px;
       display: flex;
       align-items: center;
       justify-content: center;
+      font-size: 1.5rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .inv-slot:hover {
+      border-color: rgba(184, 134, 11, 0.4);
+      background: rgba(184, 134, 11, 0.05);
+      transform: scale(1.05);
+    }
+
+    .inv-slot.filled {
+      border-color: rgba(184, 134, 11, 0.25);
+    }
+
+    .inv-slot .tooltip {
+      display: none;
+      position: absolute;
+      bottom: calc(100% + 8px);
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(20, 15, 10, 0.95);
+      border: 1px solid rgba(184, 134, 11, 0.3);
+      padding: 0.4rem 0.8rem;
+      border-radius: 3px;
+      font-size: 0.75rem;
+      font-family: 'Cinzel', serif;
+      color: #d4c5a9;
+      white-space: nowrap;
+      z-index: 10;
+    }
+
+    .inv-slot:hover .tooltip {
+      display: block;
+    }
+
+    /* Dice roller */
+    .dice-section {
+      text-align: center;
+      padding-top: 1rem;
+    }
+
+    .dice-btn {
+      background: linear-gradient(135deg, rgba(184, 134, 11, 0.2), rgba(184, 134, 11, 0.1));
+      border: 1px solid rgba(184, 134, 11, 0.3);
+      color: #b8860b;
+      font-family: 'Cinzel', serif;
       font-size: 0.8rem;
-      font-weight: bold;
-      transition: width 0.3s;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 0.7rem 2rem;
+      border-radius: 3px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .dice-btn:hover {
+      background: linear-gradient(135deg, rgba(184, 134, 11, 0.3), rgba(184, 134, 11, 0.15));
+      border-color: rgba(184, 134, 11, 0.5);
+      box-shadow: 0 0 20px rgba(184, 134, 11, 0.15);
+      transform: translateY(-1px);
+    }
+
+    .dice-btn:active {
+      transform: translateY(0);
+    }
+
+    .dice-result {
+      font-family: 'Cinzel', serif;
+      font-size: 2.5rem;
+      font-weight: 900;
+      color: #b8860b;
+      margin-top: 1rem;
+      text-shadow: 0 0 20px rgba(184, 134, 11, 0.4);
+      min-height: 3.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .dice-result.rolling {
+      animation: shake 0.1s infinite;
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: rotate(0deg); }
+      25% { transform: rotate(-5deg); }
+      75% { transform: rotate(5deg); }
+    }
+
+    @keyframes glow {
+      0%, 100% { text-shadow: 0 0 20px rgba(184, 134, 11, 0.4); }
+      50% { text-shadow: 0 0 40px rgba(184, 134, 11, 0.8), 0 0 60px rgba(184, 134, 11, 0.3); }
+    }
+
+    .dice-result.crit {
+      color: #ffd700;
+      animation: glow 1s ease-in-out 3;
+    }
+
+    .divider {
+      text-align: center;
+      color: rgba(184, 134, 11, 0.3);
+      font-size: 0.7rem;
+      letter-spacing: 8px;
+      margin: 1.5rem 0;
+    }
+
+    /* Mobile */
+    @media (max-width: 600px) {
+      .sheet { padding: 1.5rem; }
+      h1 { font-size: 1.4rem; letter-spacing: 2px; }
+      .info-grid { grid-template-columns: 1fr; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .skills-list { grid-template-columns: 1fr; }
+      .inventory-grid { grid-template-columns: repeat(3, 1fr); }
     }
   </style>
 </head>
 <body>
 
   <div class="sheet">
-    <h1>⚔️ Character Sheet</h1>
-    <p class="subtitle">Vul je personage in</p>
+    <div class="corner corner-tl"></div>
+    <div class="corner corner-tr"></div>
+    <div class="corner corner-bl"></div>
+    <div class="corner corner-br"></div>
+
+    <!-- Header -->
+    <div class="header">
+      <span class="icon">🛡️</span>
+      <h1>Character Sheet</h1>
+      <p class="subtitle">Smeed uw lot in de vuren van het avontuur</p>
+    </div>
+
+    <!-- Level -->
+    <div class="level-badge">
+      <input type="number" value="5" min="1" max="99">
+    </div>
 
     <!-- Basis Info -->
     <div class="section">
-      <h2>📜 Basis Informatie</h2>
+      <h2><span class="icon">📜</span> Basis Informatie</h2>
       <div class="info-grid">
-        <div>
+        <div class="field">
           <label>Naam</label>
-          <input type="text" placeholder="Bijv. Arion">
+          <input type="text" placeholder="Bijv. Arion Schaduwwandel">
         </div>
-        <div>
-          <label>Leeftijd</label>
-          <input type="number" placeholder="Bijv. 27">
+        <div class="field">
+          <label>Titel</label>
+          <input type="text" placeholder="Bijv. De Eeuwige Vlam">
         </div>
-        <div>
+        <div class="field">
           <label>Ras</label>
           <select>
             <option>Mens</option>
             <option>Elf</option>
+            <option selected>Halfelf</option>
             <option>Dwerg</option>
             <option>Ork</option>
             <option>Draakgeboren</option>
-            <option>Anders</option>
+            <option>Tiefling</option>
+            <option>Gnoom</option>
           </select>
         </div>
-        <div>
+        <div class="field">
           <label>Klasse</label>
           <select>
             <option>Krijger</option>
-            <option>Magiër</option>
+            <option selected>Magiër</option>
             <option>Schurk</option>
-            <option>Genezer</option>
-            <option>Boogschutter</option>
-            <option>Anders</option>
+            <option>Paladijn</option>
+            <option>Jager</option>
+            <option>Bard</option>
+            <option>Druïde</option>
+            <option>Monnik</option>
           </select>
+        </div>
+        <div class="field">
+          <label>Leeftijd</label>
+          <input type="number" placeholder="27" value="127">
+        </div>
+        <div class="field">
+          <label>Afkomst</label>
+          <input type="text" placeholder="Bijv. Zilverwoud">
         </div>
       </div>
     </div>
 
-    <!-- HP -->
+    <!-- HP & XP -->
     <div class="section">
-      <h2>❤️ Levenspunten</h2>
-      <div class="hp-bar">
-        <div class="hp-fill">75 / 100 HP</div>
+      <h2><span class="icon">❤️</span> Levenskracht & Ervaring</h2>
+      <div class="hp-container">
+        <div class="hp-labels">
+          <span>HP</span>
+          <span>75 / 100</span>
+        </div>
+        <div class="hp-bar">
+          <div class="hp-fill" style="width: 75%"></div>
+          <span class="hp-text">75 / 100</span>
+        </div>
+      </div>
+      <div class="hp-container">
+        <div class="hp-labels">
+          <span>XP</span>
+          <span>4500 / 10000</span>
+        </div>
+        <div class="xp-bar">
+          <div class="xp-fill" style="width: 45%"></div>
+        </div>
       </div>
     </div>
 
     <!-- Stats -->
     <div class="section">
-      <h2>📊 Statistieken</h2>
+      <h2><span class="icon">⚡</span> Statistieken</h2>
       <div class="stats-grid">
         <div class="stat">
           <div class="stat-name">Kracht</div>
           <input type="number" value="14">
+          <div class="stat-mod">+2</div>
         </div>
         <div class="stat">
           <div class="stat-name">Behendigheid</div>
           <input type="number" value="12">
+          <div class="stat-mod">+1</div>
         </div>
         <div class="stat">
           <div class="stat-name">Intelligentie</div>
-          <input type="number" value="16">
+          <input type="number" value="18">
+          <div class="stat-mod">+4</div>
+        </div>
+        <div class="stat">
+          <div class="stat-name">Wijsheid</div>
+          <input type="number" value="13">
+          <div class="stat-mod">+1</div>
+        </div>
+        <div class="stat">
+          <div class="stat-name">Charisma</div>
+          <input type="number" value="15">
+          <div class="stat-mod">+2</div>
         </div>
         <div class="stat">
           <div class="stat-name">Uithouding</div>
           <input type="number" value="10">
+          <div class="stat-mod">+0</div>
         </div>
-        <div class="stat">
-          <div class="stat-name">Charisma</div>
-          <input type="number" value="13">
+      </div>
+    </div>
+
+    <!-- Vaardigheden -->
+    <div class="section">
+      <h2><span class="icon">✨</span> Vaardigheden</h2>
+      <ul class="skills-list">
+        <li><input type="checkbox" checked><span>Vuurmagie</span></li>
+        <li><input type="checkbox" checked><span>IJsmagie</span></li>
+        <li><input type="checkbox"><span>Necromantie</span></li>
+        <li><input type="checkbox" checked><span>Alchemie</span></li>
+        <li><input type="checkbox"><span>Zwaardvechten</span></li>
+        <li><input type="checkbox"><span>Sluipen</span></li>
+        <li><input type="checkbox" checked><span>Genezing</span></li>
+        <li><input type="checkbox"><span>Dierenspraak</span></li>
+        <li><input type="checkbox"><span>Illusies</span></li>
+        <li><input type="checkbox" checked><span>Runenkennis</span></li>
+      </ul>
+    </div>
+
+    <!-- Inventaris -->
+    <div class="section">
+      <h2><span class="icon">🎒</span> Inventaris</h2>
+      <div class="inventory-grid">
+        <div class="inv-slot filled">⚔️<span class="tooltip">Maanlichtzwaard</span></div>
+        <div class="inv-slot filled">🛡️<span class="tooltip">Eikenschild</span></div>
+        <div class="inv-slot filled">🧪<span class="tooltip">Genezingsdrank</span></div>
+        <div class="inv-slot filled">📖<span class="tooltip">Spreukenboek</span></div>
+        <div class="inv-slot filled">💎<span class="tooltip">Zielsteen</span></div>
+        <div class="inv-slot filled">🗝️<span class="tooltip">Oude Sleutel</span></div>
+        <div class="inv-slot filled">🍞<span class="tooltip">Elfenbrood</span></div>
+        <div class="inv-slot">
         </div>
-        <div class="stat">
-          <div class="stat-name">Geluk</div>
-          <input type="number" value="8">
+        <div class="inv-slot">
+        </div>
+        <div class="inv-slot">
+        </div>
+        <div class="inv-slot">
+        </div>
+        <div class="inv-slot">
         </div>
       </div>
     </div>
 
     <!-- Achtergrond -->
     <div class="section">
-      <h2>📖 Achtergrond</h2>
-      <textarea placeholder="Beschrijf het verleden van je personage..."></textarea>
+      <h2><span class="icon">📖</span> Achtergrondverhaal</h2>
+      <textarea placeholder="Vertel het verhaal van uw personage... Waar komt u vandaan? Wat drijft u voort op uw reis?">Geboren in de Zilverwouden, werd Arion op jonge leeftijd ontdekt door de Orde van de Eeuwige Vlam. Zijn natuurlijke affiniteit met de arcane kunsten maakte hem snel een leerling van Aartsmagiër Thalindra. Na de val van de Kristallen Toren zwoer hij de verloren kennis terug te vinden...</textarea>
     </div>
 
-    <!-- Uitrusting -->
+    <!-- Notities -->
     <div class="section">
-      <h2>🎒 Uitrusting</h2>
-      <textarea placeholder="Zwaard, schild, toverdrank..."></textarea>
+      <h2><span class="icon">🪶</span> Notities</h2>
+      <textarea placeholder="Quests, aanwijzingen, bondgenoten..."></textarea>
+    </div>
+
+    <div class="divider">⟡ ⟡ ⟡ ⟡ ⟡</div>
+
+    <!-- Dice Roller -->
+    <div class="section dice-section">
+      <h2><span class="icon">🎲</span> Dobbelsteen</h2>
+      <div style="display: flex; gap: 0.5rem; justify-content: center; flex-wrap: wrap; margin-bottom: 1rem;">
+        <button class="dice-btn" onclick="rollDice(4)">D4</button>
+        <button class="dice-btn" onclick="rollDice(6)">D6</button>
+        <button class="dice-btn" onclick="rollDice(8)">D8</button>
+        <button class="dice-btn" onclick="rollDice(10)">D10</button>
+        <button class="dice-btn" onclick="rollDice(12)">D12</button>
+        <button class="dice-btn" onclick="rollDice(20)">D20</button>
+      </div>
+      <div class="dice-result" id="diceResult">—</div>
     </div>
   </div>
+
+  <script>
+    function rollDice(sides) {
+      const el = document.getElementById('diceResult');
+      el.className = 'dice-result rolling';
+      el.textContent = '🎲';
+
+      let rolls = 0;
+      const maxRolls = 15;
+      const interval = setInterval(() => {
+        el.textContent = Math.floor(Math.random() * sides) + 1;
+        rolls++;
+        if (rolls >= maxRolls) {
+          clearInterval(interval);
+          const result = Math.floor(Math.random() * sides) + 1;
+          el.textContent = result;
+          el.className = 'dice-result';
+          if (result === sides) {
+            el.classList.add('crit');
+            el.textContent = result + ' ✦ CRIT!';
+          }
+          if (result === 1) {
+            el.style.color = '#8b0000';
+            el.textContent = result + ' — Fail...';
+            setTimeout(() => el.style.color = '', 2000);
+          }
+        }
+      }, 60);
+    }
+  </script>
 
 </body>
 </html>
