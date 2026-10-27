@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>⚔️ Roleplay Character Sheet</title>
+  <title>⚔️ Roleplay Wereld</title>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=MedievalSharp&display=swap" rel="stylesheet">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -13,9 +13,6 @@
       background: #0a0a0f;
       color: #d4c5a9;
       min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      padding: 2rem 1rem;
       position: relative;
       overflow-x: hidden;
     }
@@ -32,7 +29,6 @@
       z-index: 0;
     }
 
-    /* Floating particles */
     body::after {
       content: '';
       position: fixed;
@@ -57,80 +53,39 @@
       100% { opacity: 1; }
     }
 
-    .sheet {
+    .container {
       position: relative;
       z-index: 1;
-      background:
-        linear-gradient(135deg, rgba(20, 15, 10, 0.95), rgba(30, 22, 15, 0.98), rgba(20, 15, 10, 0.95));
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 1rem;
+    }
+
+    /* PANELS */
+    .panel {
+      background: linear-gradient(135deg, rgba(20, 15, 10, 0.95), rgba(30, 22, 15, 0.98), rgba(20, 15, 10, 0.95));
       border: 1px solid rgba(184, 134, 11, 0.3);
       border-radius: 4px;
-      max-width: 750px;
-      width: 100%;
-      padding: 2.5rem;
-      box-shadow:
-        0 0 60px rgba(0, 0, 0, 0.8),
-        inset 0 0 80px rgba(0, 0, 0, 0.3),
-        0 0 15px rgba(184, 134, 11, 0.1);
-    }
-
-    .sheet::before {
-      content: '';
-      position: absolute;
-      top: 8px; left: 8px; right: 8px; bottom: 8px;
-      border: 1px solid rgba(184, 134, 11, 0.15);
-      border-radius: 2px;
-      pointer-events: none;
-    }
-
-    .sheet::after {
-      content: '';
-      position: absolute;
-      top: 14px; left: 14px; right: 14px; bottom: 14px;
-      border: 1px solid rgba(184, 134, 11, 0.08);
-      border-radius: 2px;
-      pointer-events: none;
-    }
-
-    /* Corner ornaments */
-    .corner {
-      position: absolute;
-      width: 40px;
-      height: 40px;
-      border-color: rgba(184, 134, 11, 0.4);
-      border-style: solid;
-    }
-    .corner-tl { top: 20px; left: 20px; border-width: 2px 0 0 2px; }
-    .corner-tr { top: 20px; right: 20px; border-width: 2px 2px 0 0; }
-    .corner-bl { bottom: 20px; left: 20px; border-width: 0 0 2px 2px; }
-    .corner-br { bottom: 20px; right: 20px; border-width: 0 2px 2px 0; }
-
-    .header {
-      text-align: center;
-      margin-bottom: 2rem;
-      padding-bottom: 1.5rem;
-      border-bottom: 1px solid rgba(184, 134, 11, 0.2);
+      padding: 2rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 0 60px rgba(0, 0, 0, 0.8), inset 0 0 80px rgba(0, 0, 0, 0.3), 0 0 15px rgba(184, 134, 11, 0.1);
       position: relative;
     }
 
-    .header::after {
-      content: '⟡ ⟡ ⟡';
+    .panel::before {
+      content: '';
       position: absolute;
-      bottom: -10px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: rgba(20, 15, 10, 1);
-      padding: 0 1rem;
-      color: rgba(184, 134, 11, 0.5);
-      font-size: 0.7rem;
-      letter-spacing: 8px;
+      top: 6px; left: 6px; right: 6px; bottom: 6px;
+      border: 1px solid rgba(184, 134, 11, 0.12);
+      border-radius: 2px;
+      pointer-events: none;
     }
 
-    .header .icon {
-      font-size: 2.5rem;
-      display: block;
-      margin-bottom: 0.5rem;
-      filter: drop-shadow(0 0 8px rgba(184, 134, 11, 0.3));
-    }
+    .corner { position: absolute; width: 30px; height: 30px; border-color: rgba(184, 134, 11, 0.4); border-style: solid; }
+    .corner-tl { top: 12px; left: 12px; border-width: 2px 0 0 2px; }
+    .corner-tr { top: 12px; right: 12px; border-width: 2px 2px 0 0; }
+    .corner-bl { bottom: 12px; left: 12px; border-width: 0 0 2px 2px; }
+    .corner-br { bottom: 12px; right: 12px; border-width: 0 2px 2px 0; }
 
     h1 {
       font-family: 'Cinzel', serif;
@@ -139,40 +94,14 @@
       font-weight: 900;
       letter-spacing: 4px;
       text-transform: uppercase;
-      text-shadow:
-        0 0 20px rgba(184, 134, 11, 0.3),
-        0 2px 4px rgba(0, 0, 0, 0.5);
+      text-shadow: 0 0 20px rgba(184, 134, 11, 0.3), 0 2px 4px rgba(0, 0, 0, 0.5);
+      text-align: center;
     }
 
-    .subtitle {
-      color: rgba(212, 197, 169, 0.5);
-      font-style: italic;
-      font-size: 1rem;
-      margin-top: 0.3rem;
-      letter-spacing: 2px;
-    }
-
-    .section {
-      margin-bottom: 2rem;
-      animation: fadeIn 0.6s ease-out both;
-    }
-
-    .section:nth-child(2) { animation-delay: 0.1s; }
-    .section:nth-child(3) { animation-delay: 0.2s; }
-    .section:nth-child(4) { animation-delay: 0.3s; }
-    .section:nth-child(5) { animation-delay: 0.4s; }
-    .section:nth-child(6) { animation-delay: 0.5s; }
-    .section:nth-child(7) { animation-delay: 0.6s; }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .section h2 {
+    h2 {
       font-family: 'Cinzel', serif;
       color: #b8860b;
-      font-size: 0.9rem;
+      font-size: 1rem;
       font-weight: 700;
       letter-spacing: 3px;
       text-transform: uppercase;
@@ -182,29 +111,32 @@
       gap: 0.8rem;
     }
 
-    .section h2::before,
-    .section h2::after {
+    h2::before, h2::after {
       content: '';
       flex: 1;
       height: 1px;
       background: linear-gradient(90deg, transparent, rgba(184, 134, 11, 0.3), transparent);
     }
 
-    .section h2 .icon {
-      font-size: 1.1rem;
+    h3 {
+      font-family: 'Cinzel', serif;
+      color: #b8860b;
+      font-size: 0.85rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
     }
 
-    .info-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1rem;
+    .subtitle {
+      text-align: center;
+      color: rgba(212, 197, 169, 0.5);
+      font-style: italic;
+      font-size: 1rem;
+      margin-top: 0.3rem;
+      letter-spacing: 2px;
     }
 
-    .field {
-      position: relative;
-    }
-
-    .field label {
+    label {
       display: block;
       font-family: 'Cinzel', serif;
       color: rgba(184, 134, 11, 0.7);
@@ -214,7 +146,7 @@
       margin-bottom: 0.4rem;
     }
 
-    .field input, .field select {
+    input[type="text"], input[type="date"], input[type="number"], select, textarea {
       background: rgba(0, 0, 0, 0.3);
       border: 1px solid rgba(184, 134, 11, 0.15);
       color: #d4c5a9;
@@ -226,356 +158,23 @@
       transition: all 0.3s ease;
     }
 
-    .field input:hover, .field select:hover {
-      border-color: rgba(184, 134, 11, 0.3);
-    }
-
-    .field input:focus, .field select:focus {
+    input:focus, select:focus, textarea:focus {
       border-color: rgba(184, 134, 11, 0.6);
       outline: none;
       box-shadow: 0 0 15px rgba(184, 134, 11, 0.1), inset 0 0 10px rgba(184, 134, 11, 0.05);
-      background: rgba(0, 0, 0, 0.4);
     }
 
-    .field select option {
-      background: #1a1510;
-      color: #d4c5a9;
-    }
+    select option { background: #1a1510; color: #d4c5a9; }
 
-    /* Level badge */
-    .level-badge {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 1.5rem auto;
-      width: 80px;
-      height: 80px;
-      border-radius: 50%;
-      border: 2px solid rgba(184, 134, 11, 0.4);
-      background: radial-gradient(circle, rgba(184, 134, 11, 0.1), transparent);
-      position: relative;
-    }
-
-    .level-badge::before {
-      content: 'LEVEL';
-      position: absolute;
-      top: -8px;
-      font-family: 'Cinzel', serif;
-      font-size: 0.5rem;
-      letter-spacing: 3px;
-      color: rgba(184, 134, 11, 0.6);
-      background: rgba(20, 15, 10, 1);
-      padding: 0 0.5rem;
-    }
-
-    .level-badge input {
-      background: transparent;
-      border: none;
-      color: #b8860b;
-      font-family: 'Cinzel', serif;
-      font-size: 2rem;
-      font-weight: 900;
-      text-align: center;
-      width: 50px;
-      outline: none;
-      text-shadow: 0 0 15px rgba(184, 134, 11, 0.4);
-    }
-
-    /* HP Section */
-    .hp-container {
-      position: relative;
-      margin: 0.5rem 0;
-    }
-
-    .hp-labels {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 0.5rem;
-      font-family: 'Cinzel', serif;
-      font-size: 0.7rem;
-      letter-spacing: 1px;
-      color: rgba(184, 134, 11, 0.6);
-    }
-
-    .hp-bar {
-      background: rgba(0, 0, 0, 0.4);
-      border: 1px solid rgba(139, 0, 0, 0.3);
-      border-radius: 20px;
-      height: 28px;
-      overflow: hidden;
-      position: relative;
-    }
-
-    .hp-fill {
-      background: linear-gradient(90deg, #8b0000, #b22222, #dc143c);
-      height: 100%;
-      width: 75%;
-      border-radius: 20px;
-      position: relative;
-      transition: width 0.5s ease;
-      box-shadow: 0 0 20px rgba(139, 0, 0, 0.4), inset 0 -2px 4px rgba(0, 0, 0, 0.3);
-    }
-
-    .hp-fill::after {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 40%;
-      background: linear-gradient(180deg, rgba(255, 255, 255, 0.1), transparent);
-      border-radius: 20px 20px 0 0;
-    }
-
-    .hp-text {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      font-family: 'Cinzel', serif;
-      font-size: 0.75rem;
-      font-weight: 700;
-      color: #fff;
-      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
-      letter-spacing: 1px;
-    }
-
-    /* XP Bar */
-    .xp-bar {
-      background: rgba(0, 0, 0, 0.4);
-      border: 1px solid rgba(184, 134, 11, 0.2);
-      border-radius: 20px;
-      height: 14px;
-      overflow: hidden;
-      margin-top: 1rem;
-    }
-
-    .xp-fill {
-      background: linear-gradient(90deg, #8b6914, #b8860b, #daa520);
-      height: 100%;
-      width: 45%;
-      border-radius: 20px;
-      box-shadow: 0 0 10px rgba(184, 134, 11, 0.3);
-      position: relative;
-    }
-
-    .xp-fill::after {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 40%;
-      background: linear-gradient(180deg, rgba(255, 255, 255, 0.15), transparent);
-      border-radius: 20px 20px 0 0;
-    }
-
-    /* Stats */
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1rem;
-    }
-
-    .stat {
-      background: rgba(0, 0, 0, 0.25);
-      border: 1px solid rgba(184, 134, 11, 0.15);
-      border-radius: 4px;
-      padding: 1rem 0.5rem;
-      text-align: center;
-      position: relative;
-      transition: all 0.3s ease;
-    }
-
-    .stat:hover {
-      border-color: rgba(184, 134, 11, 0.4);
-      background: rgba(0, 0, 0, 0.35);
-      box-shadow: 0 0 20px rgba(184, 134, 11, 0.08);
-      transform: translateY(-2px);
-    }
-
-    .stat-name {
-      font-family: 'Cinzel', serif;
-      font-size: 0.6rem;
-      color: rgba(184, 134, 11, 0.7);
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      margin-bottom: 0.3rem;
-    }
-
-    .stat input {
-      background: transparent;
-      border: none;
-      color: #d4c5a9;
-      font-family: 'Cinzel', serif;
-      font-size: 2rem;
-      font-weight: 700;
-      text-align: center;
-      width: 100%;
-      outline: none;
-      transition: color 0.3s;
-    }
-
-    .stat:hover input {
-      color: #b8860b;
-    }
-
-    .stat-mod {
-      font-size: 0.8rem;
-      color: rgba(184, 134, 11, 0.5);
-      margin-top: 0.2rem;
-    }
-
-    /* Skills */
-    .skills-list {
-      list-style: none;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 0.4rem;
-    }
-
-    .skills-list li {
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-      padding: 0.4rem 0.6rem;
-      border-radius: 3px;
-      transition: background 0.3s;
-      cursor: default;
-    }
-
-    .skills-list li:hover {
-      background: rgba(184, 134, 11, 0.05);
-    }
-
-    .skills-list input[type="checkbox"] {
-      appearance: none;
-      width: 16px;
-      height: 16px;
-      border: 1px solid rgba(184, 134, 11, 0.3);
-      border-radius: 2px;
-      background: rgba(0, 0, 0, 0.3);
-      cursor: pointer;
-      position: relative;
-      flex-shrink: 0;
-    }
-
-    .skills-list input[type="checkbox"]:checked {
-      background: rgba(184, 134, 11, 0.3);
-      border-color: rgba(184, 134, 11, 0.6);
-    }
-
-    .skills-list input[type="checkbox"]:checked::after {
-      content: '✦';
-      position: absolute;
-      top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
-      color: #b8860b;
-      font-size: 0.6rem;
-    }
-
-    .skills-list span {
-      font-size: 0.95rem;
-      color: rgba(212, 197, 169, 0.7);
-    }
-
-    .skills-list input[type="checkbox"]:checked + span {
-      color: #d4c5a9;
-    }
-
-    /* Textarea */
     textarea {
-      background: rgba(0, 0, 0, 0.3);
-      border: 1px solid rgba(184, 134, 11, 0.15);
-      color: #d4c5a9;
-      padding: 0.8rem 1rem;
-      border-radius: 3px;
-      width: 100%;
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1rem;
-      line-height: 1.6;
       resize: vertical;
-      min-height: 100px;
-      transition: all 0.3s ease;
+      min-height: 60px;
+      line-height: 1.6;
     }
 
-    textarea:hover {
-      border-color: rgba(184, 134, 11, 0.3);
-    }
-
-    textarea:focus {
-      border-color: rgba(184, 134, 11, 0.5);
-      outline: none;
-      box-shadow: 0 0 15px rgba(184, 134, 11, 0.08);
-    }
-
-    textarea::placeholder {
-      color: rgba(212, 197, 169, 0.3);
-      font-style: italic;
-    }
-
-    .field input::placeholder {
-      color: rgba(212, 197, 169, 0.3);
-      font-style: italic;
-    }
-
-    /* Inventory */
-    .inventory-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 0.5rem;
-    }
-
-    .inv-slot {
-      aspect-ratio: 1;
-      background: rgba(0, 0, 0, 0.3);
-      border: 1px solid rgba(184, 134, 11, 0.1);
-      border-radius: 4px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.5rem;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      position: relative;
-    }
-
-    .inv-slot:hover {
-      border-color: rgba(184, 134, 11, 0.4);
-      background: rgba(184, 134, 11, 0.05);
-      transform: scale(1.05);
-    }
-
-    .inv-slot.filled {
-      border-color: rgba(184, 134, 11, 0.25);
-    }
-
-    .inv-slot .tooltip {
-      display: none;
-      position: absolute;
-      bottom: calc(100% + 8px);
-      left: 50%;
-      transform: translateX(-50%);
-      background: rgba(20, 15, 10, 0.95);
-      border: 1px solid rgba(184, 134, 11, 0.3);
-      padding: 0.4rem 0.8rem;
-      border-radius: 3px;
-      font-size: 0.75rem;
-      font-family: 'Cinzel', serif;
-      color: #d4c5a9;
-      white-space: nowrap;
-      z-index: 10;
-    }
-
-    .inv-slot:hover .tooltip {
-      display: block;
-    }
-
-    /* Dice roller */
-    .dice-section {
-      text-align: center;
-      padding-top: 1rem;
-    }
-
-    .dice-btn {
-      background: linear-gradient(135deg, rgba(184, 134, 11, 0.2), rgba(184, 134, 11, 0.1));
-      border: 1px solid rgba(184, 134, 11, 0.3);
+    .btn {
+      background: linear-gradient(135deg, rgba(184, 134, 11, 0.25), rgba(184, 134, 11, 0.12));
+      border: 1px solid rgba(184, 134, 11, 0.4);
       color: #b8860b;
       font-family: 'Cinzel', serif;
       font-size: 0.8rem;
@@ -587,49 +186,50 @@
       transition: all 0.3s ease;
     }
 
-    .dice-btn:hover {
-      background: linear-gradient(135deg, rgba(184, 134, 11, 0.3), rgba(184, 134, 11, 0.15));
-      border-color: rgba(184, 134, 11, 0.5);
+    .btn:hover {
+      background: linear-gradient(135deg, rgba(184, 134, 11, 0.35), rgba(184, 134, 11, 0.18));
+      border-color: rgba(184, 134, 11, 0.6);
       box-shadow: 0 0 20px rgba(184, 134, 11, 0.15);
       transform: translateY(-1px);
     }
 
-    .dice-btn:active {
-      transform: translateY(0);
+    .btn:active { transform: translateY(0); }
+
+    .btn-danger {
+      border-color: rgba(139, 0, 0, 0.5);
+      color: #dc143c;
+      background: linear-gradient(135deg, rgba(139, 0, 0, 0.2), rgba(139, 0, 0, 0.08));
     }
 
-    .dice-result {
-      font-family: 'Cinzel', serif;
-      font-size: 2.5rem;
-      font-weight: 900;
-      color: #b8860b;
-      margin-top: 1rem;
-      text-shadow: 0 0 20px rgba(184, 134, 11, 0.4);
-      min-height: 3.5rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    .btn-danger:hover {
+      border-color: rgba(220, 20, 60, 0.6);
+      box-shadow: 0 0 20px rgba(139, 0, 0, 0.2);
     }
 
-    .dice-result.rolling {
-      animation: shake 0.1s infinite;
+    .btn-success {
+      border-color: rgba(34, 139, 34, 0.5);
+      color: #32cd32;
+      background: linear-gradient(135deg, rgba(34, 139, 34, 0.2), rgba(34, 139, 34, 0.08));
     }
 
-    @keyframes shake {
-      0%, 100% { transform: rotate(0deg); }
-      25% { transform: rotate(-5deg); }
-      75% { transform: rotate(5deg); }
+    .btn-success:hover {
+      border-color: rgba(50, 205, 50, 0.6);
+      box-shadow: 0 0 20px rgba(34, 139, 34, 0.2);
     }
 
-    @keyframes glow {
-      0%, 100% { text-shadow: 0 0 20px rgba(184, 134, 11, 0.4); }
-      50% { text-shadow: 0 0 40px rgba(184, 134, 11, 0.8), 0 0 60px rgba(184, 134, 11, 0.3); }
+    .btn-sm {
+      font-size: 0.65rem;
+      padding: 0.4rem 1rem;
+      letter-spacing: 1px;
     }
 
-    .dice-result.crit {
-      color: #ffd700;
-      animation: glow 1s ease-in-out 3;
-    }
+    .hidden { display: none !important; }
+
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; }
+    .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
+
+    .field { margin-bottom: 1rem; }
 
     .divider {
       text-align: center;
@@ -639,244 +239,1312 @@
       margin: 1.5rem 0;
     }
 
-    /* Mobile */
-    @media (max-width: 600px) {
-      .sheet { padding: 1.5rem; }
+    /* REGISTRATION */
+    #registerScreen {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 2rem;
+    }
+
+    .register-card {
+      max-width: 500px;
+      width: 100%;
+    }
+
+    .register-card .icon-big {
+      font-size: 3rem;
+      text-align: center;
+      display: block;
+      margin-bottom: 0.5rem;
+      filter: drop-shadow(0 0 10px rgba(184, 134, 11, 0.3));
+    }
+
+    .error-msg {
+      color: #dc143c;
+      font-size: 0.85rem;
+      margin-top: 0.5rem;
+      text-align: center;
+      font-style: italic;
+    }
+
+    /* NAV */
+    .nav {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .nav-btn {
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(184, 134, 11, 0.15);
+      color: rgba(212, 197, 169, 0.6);
+      font-family: 'Cinzel', serif;
+      font-size: 0.65rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 0.6rem 1.2rem;
+      border-radius: 3px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .nav-btn:hover, .nav-btn.active {
+      background: rgba(184, 134, 11, 0.15);
+      border-color: rgba(184, 134, 11, 0.4);
+      color: #b8860b;
+      box-shadow: 0 0 15px rgba(184, 134, 11, 0.1);
+    }
+
+    /* FINANCE CARDS */
+    .finance-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; }
+
+    .finance-card {
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(184, 134, 11, 0.15);
+      border-radius: 4px;
+      padding: 1.2rem;
+      text-align: center;
+      transition: all 0.3s;
+    }
+
+    .finance-card:hover {
+      border-color: rgba(184, 134, 11, 0.3);
+      transform: translateY(-2px);
+    }
+
+    .finance-card .label {
+      font-family: 'Cinzel', serif;
+      font-size: 0.6rem;
+      color: rgba(184, 134, 11, 0.6);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    .finance-card .amount {
+      font-family: 'Cinzel', serif;
+      font-size: 1.8rem;
+      font-weight: 900;
+      color: #b8860b;
+      text-shadow: 0 0 15px rgba(184, 134, 11, 0.3);
+      margin: 0.3rem 0;
+    }
+
+    .finance-card .amount.cash { color: #32cd32; }
+    .finance-card .amount.bank { color: #4169e1; }
+
+    /* TRANSFER */
+    .transfer-section {
+      display: flex;
+      gap: 0.5rem;
+      align-items: flex-end;
+      flex-wrap: wrap;
+      margin-top: 1rem;
+    }
+
+    .transfer-section .field { flex: 1; min-width: 120px; margin-bottom: 0; }
+
+    /* LOG TABLE */
+    .log-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+    }
+
+    .log-table th {
+      font-family: 'Cinzel', serif;
+      font-size: 0.6rem;
+      color: rgba(184, 134, 11, 0.7);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      text-align: left;
+      padding: 0.6rem;
+      border-bottom: 1px solid rgba(184, 134, 11, 0.2);
+    }
+
+    .log-table td {
+      padding: 0.5rem 0.6rem;
+      font-size: 0.9rem;
+      border-bottom: 1px solid rgba(184, 134, 11, 0.06);
+    }
+
+    .log-table tr:hover td { background: rgba(184, 134, 11, 0.03); }
+
+    .log-positive { color: #32cd32; }
+    .log-negative { color: #dc143c; }
+
+    /* CAR CARDS */
+    .car-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.2rem; }
+
+    .car-card {
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(184, 134, 11, 0.15);
+      border-radius: 4px;
+      overflow: hidden;
+      transition: all 0.3s;
+    }
+
+    .car-card:hover {
+      border-color: rgba(184, 134, 11, 0.4);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    }
+
+    .car-img {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 4rem;
+      background: rgba(0, 0, 0, 0.4);
+      border-bottom: 1px solid rgba(184, 134, 11, 0.1);
+    }
+
+    .car-info { padding: 1rem; }
+
+    .car-name {
+      font-family: 'Cinzel', serif;
+      color: #b8860b;
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+
+    .car-desc {
+      color: rgba(212, 197, 169, 0.6);
+      font-size: 0.9rem;
+      margin: 0.5rem 0;
+      line-height: 1.4;
+      font-style: italic;
+    }
+
+    .car-specs {
+      display: flex;
+      gap: 1rem;
+      font-size: 0.75rem;
+      color: rgba(212, 197, 169, 0.5);
+      margin: 0.5rem 0;
+    }
+
+    .car-specs span { display: flex; align-items: center; gap: 0.3rem; }
+
+    .car-stars {
+      color: #b8860b;
+      font-size: 0.9rem;
+      margin: 0.5rem 0;
+      letter-spacing: 2px;
+    }
+
+    .car-stars .empty { color: rgba(184, 134, 11, 0.2); }
+
+    .car-price {
+      font-family: 'Cinzel', serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #32cd32;
+      margin: 0.5rem 0;
+    }
+
+    .car-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 0.5rem;
+    }
+
+    .car-owned {
+      font-family: 'Cinzel', serif;
+      font-size: 0.7rem;
+      color: #4169e1;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 0.4rem 1rem;
+      border: 1px solid rgba(65, 105, 225, 0.3);
+      border-radius: 3px;
+    }
+
+    /* MY CARS */
+    .my-car {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 0.8rem;
+      background: rgba(0, 0, 0, 0.2);
+      border: 1px solid rgba(184, 134, 11, 0.1);
+      border-radius: 4px;
+      margin-bottom: 0.5rem;
+    }
+
+    .my-car-icon { font-size: 2rem; }
+    .my-car-name { font-family: 'Cinzel', serif; color: #b8860b; font-size: 0.85rem; letter-spacing: 1px; }
+    .my-car-value { color: rgba(212, 197, 169, 0.5); font-size: 0.8rem; font-style: italic; }
+
+    /* ALARM SYSTEM */
+    .alarm-status {
+      text-align: center;
+      padding: 2rem;
+      border-radius: 4px;
+      margin-bottom: 1.5rem;
+      transition: all 0.5s;
+    }
+
+    .alarm-status.disarmed {
+      background: rgba(50, 205, 50, 0.05);
+      border: 1px solid rgba(50, 205, 50, 0.2);
+    }
+
+    .alarm-status.armed {
+      background: rgba(65, 105, 225, 0.05);
+      border: 1px solid rgba(65, 105, 225, 0.3);
+    }
+
+    .alarm-status.triggered {
+      background: rgba(220, 20, 60, 0.1);
+      border: 1px solid rgba(220, 20, 60, 0.4);
+      animation: alarmPulse 1s ease-in-out infinite;
+    }
+
+    @keyframes alarmPulse {
+      0%, 100% { box-shadow: 0 0 20px rgba(220, 20, 60, 0.1); }
+      50% { box-shadow: 0 0 40px rgba(220, 20, 60, 0.3); border-color: rgba(220, 20, 60, 0.7); }
+    }
+
+    .alarm-icon {
+      font-size: 3rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .alarm-status-text {
+      font-family: 'Cinzel', serif;
+      font-size: 1.2rem;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+    }
+
+    .alarm-status.disarmed .alarm-status-text { color: #32cd32; }
+    .alarm-status.armed .alarm-status-text { color: #4169e1; }
+    .alarm-status.triggered .alarm-status-text { color: #dc143c; }
+
+    .alarm-time {
+      font-size: 0.85rem;
+      color: rgba(212, 197, 169, 0.5);
+      margin-top: 0.3rem;
+    }
+
+    .alarm-controls {
+      display: flex;
+      gap: 0.5rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin: 1.5rem 0;
+    }
+
+    .zone-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 0.8rem;
+      margin-top: 1rem;
+    }
+
+    .zone-card {
+      background: rgba(0, 0, 0, 0.25);
+      border: 1px solid rgba(184, 134, 11, 0.1);
+      border-radius: 4px;
+      padding: 0.8rem;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      transition: all 0.3s;
+      cursor: pointer;
+    }
+
+    .zone-card:hover {
+      border-color: rgba(184, 134, 11, 0.3);
+    }
+
+    .zone-card.active { border-color: rgba(50, 205, 50, 0.3); }
+    .zone-card.alert { border-color: rgba(220, 20, 60, 0.4); animation: alarmPulse 1s infinite; }
+
+    .zone-icon { font-size: 1.5rem; }
+    .zone-name { font-family: 'Cinzel', serif; font-size: 0.7rem; color: #b8860b; letter-spacing: 1px; text-transform: uppercase; }
+    .zone-status-text { font-size: 0.8rem; }
+    .zone-status-text.ok { color: #32cd32; }
+    .zone-status-text.alert-text { color: #dc143c; }
+    .zone-status-text.off { color: rgba(212, 197, 169, 0.3); }
+
+    .zone-toggle {
+      margin-left: auto;
+      width: 36px;
+      height: 20px;
+      border-radius: 10px;
+      background: rgba(0, 0, 0, 0.4);
+      border: 1px solid rgba(184, 134, 11, 0.2);
+      position: relative;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .zone-toggle.on { background: rgba(50, 205, 50, 0.3); border-color: rgba(50, 205, 50, 0.5); }
+
+    .zone-toggle::after {
+      content: '';
+      position: absolute;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: #666;
+      top: 2px;
+      left: 2px;
+      transition: all 0.3s;
+    }
+
+    .zone-toggle.on::after {
+      left: 18px;
+      background: #32cd32;
+    }
+
+    /* ALARM LOG */
+    .alarm-log {
+      max-height: 200px;
+      overflow-y: auto;
+      margin-top: 1rem;
+    }
+
+    .alarm-log::-webkit-scrollbar { width: 4px; }
+    .alarm-log::-webkit-scrollbar-track { background: rgba(0,0,0,0.2); }
+    .alarm-log::-webkit-scrollbar-thumb { background: rgba(184, 134, 11, 0.3); border-radius: 2px; }
+
+    .alarm-log-entry {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      padding: 0.4rem 0;
+      border-bottom: 1px solid rgba(184, 134, 11, 0.05);
+      font-size: 0.85rem;
+    }
+
+    .alarm-log-time {
+      color: rgba(212, 197, 169, 0.4);
+      font-size: 0.75rem;
+      white-space: nowrap;
+      min-width: 65px;
+    }
+
+    .alarm-log-type {
+      font-size: 0.9rem;
+      min-width: 20px;
+      text-align: center;
+    }
+
+    /* KEYPAD */
+    .keypad {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.5rem;
+      max-width: 220px;
+      margin: 1rem auto;
+    }
+
+    .key-btn {
+      background: rgba(0, 0, 0, 0.4);
+      border: 1px solid rgba(184, 134, 11, 0.2);
+      color: #d4c5a9;
+      font-family: 'Cinzel', serif;
+      font-size: 1.2rem;
+      padding: 0.8rem;
+      border-radius: 3px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .key-btn:hover {
+      background: rgba(184, 134, 11, 0.15);
+      border-color: rgba(184, 134, 11, 0.4);
+    }
+
+    .key-btn:active { transform: scale(0.95); }
+
+    .pin-display {
+      text-align: center;
+      font-family: 'Cinzel', serif;
+      font-size: 2rem;
+      letter-spacing: 10px;
+      color: #b8860b;
+      margin: 1rem 0;
+      min-height: 2.5rem;
+    }
+
+    /* PROFILE BAR */
+    .profile-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 1.5rem;
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(184, 134, 11, 0.15);
+      border-radius: 4px;
+      margin-bottom: 1.5rem;
+    }
+
+    .profile-info {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .profile-avatar {
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, rgba(184, 134, 11, 0.3), rgba(184, 134, 11, 0.1));
+      border: 1px solid rgba(184, 134, 11, 0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+    }
+
+    .profile-name {
+      font-family: 'Cinzel', serif;
+      color: #b8860b;
+      font-weight: 700;
+      font-size: 0.9rem;
+      letter-spacing: 1px;
+    }
+
+    .profile-title {
+      color: rgba(212, 197, 169, 0.5);
+      font-size: 0.8rem;
+      font-style: italic;
+    }
+
+    .profile-balance {
+      font-family: 'Cinzel', serif;
+      color: #32cd32;
+      font-size: 1rem;
+      font-weight: 700;
+    }
+
+    /* TOAST */
+    .toast-container {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .toast {
+      background: rgba(20, 15, 10, 0.95);
+      border: 1px solid rgba(184, 134, 11, 0.3);
+      border-radius: 4px;
+      padding: 0.8rem 1.2rem;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.9rem;
+      color: #d4c5a9;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+      animation: slideIn 0.3s ease-out;
+      max-width: 350px;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .toast.success { border-color: rgba(50, 205, 50, 0.4); }
+    .toast.error { border-color: rgba(220, 20, 60, 0.4); }
+    .toast.warning { border-color: rgba(255, 165, 0, 0.4); }
+    .toast.alarm { border-color: rgba(220, 20, 60, 0.6); animation: slideIn 0.3s ease-out, alarmPulse 1s infinite; }
+
+    @keyframes slideIn {
+      from { transform: translateX(100%); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+
+    @media (max-width: 700px) {
+      .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+      .finance-grid { grid-template-columns: 1fr 1fr; }
+      .car-grid { grid-template-columns: 1fr; }
       h1 { font-size: 1.4rem; letter-spacing: 2px; }
-      .info-grid { grid-template-columns: 1fr; }
-      .stats-grid { grid-template-columns: repeat(2, 1fr); }
-      .skills-list { grid-template-columns: 1fr; }
-      .inventory-grid { grid-template-columns: repeat(3, 1fr); }
+      .nav-btn { font-size: 0.55rem; padding: 0.5rem 0.8rem; }
+      .profile-bar { flex-direction: column; gap: 0.5rem; text-align: center; }
     }
   </style>
 </head>
 <body>
 
-  <div class="sheet">
-    <div class="corner corner-tl"></div>
-    <div class="corner corner-tr"></div>
-    <div class="corner corner-bl"></div>
-    <div class="corner corner-br"></div>
+  <div class="toast-container" id="toastContainer"></div>
 
-    <!-- Header -->
-    <div class="header">
-      <span class="icon">🛡️</span>
-      <h1>Character Sheet</h1>
-      <p class="subtitle">Smeed uw lot in de vuren van het avontuur</p>
-    </div>
+  <!-- ==================== REGISTER SCREEN ==================== -->
+  <div id="registerScreen">
+    <div class="container" style="display:flex;align-items:center;justify-content:center;min-height:100vh;">
+      <div class="panel register-card">
+        <div class="corner corner-tl"></div>
+        <div class="corner corner-tr"></div>
+        <div class="corner corner-bl"></div>
+        <div class="corner corner-br"></div>
 
-    <!-- Level -->
-    <div class="level-badge">
-      <input type="number" value="5" min="1" max="99">
-    </div>
+        <span class="icon-big">⚔️</span>
+        <h1>Registratie</h1>
+        <p class="subtitle">Creëer uw karakter en betreed de wereld</p>
 
-    <!-- Basis Info -->
-    <div class="section">
-      <h2><span class="icon">📜</span> Basis Informatie</h2>
-      <div class="info-grid">
+        <div class="divider">⟡ ⟡ ⟡</div>
+
         <div class="field">
-          <label>Naam</label>
-          <input type="text" placeholder="Bijv. Arion Schaduwwandel">
+          <label>Voornaam</label>
+          <input type="text" id="regFirstName" placeholder="Bijv. Arion">
         </div>
         <div class="field">
-          <label>Titel</label>
-          <input type="text" placeholder="Bijv. De Eeuwige Vlam">
+          <label>Achternaam</label>
+          <input type="text" id="regLastName" placeholder="Bijv. Schaduwwandel">
         </div>
         <div class="field">
-          <label>Ras</label>
-          <select>
-            <option>Mens</option>
-            <option>Elf</option>
-            <option selected>Halfelf</option>
-            <option>Dwerg</option>
-            <option>Ork</option>
-            <option>Draakgeboren</option>
-            <option>Tiefling</option>
-            <option>Gnoom</option>
-          </select>
+          <label>Geboortedatum</label>
+          <input type="date" id="regBirthdate">
+        </div>
+        <div class="grid-2">
+          <div class="field">
+            <label>Ras</label>
+            <select id="regRace">
+              <option>Mens</option>
+              <option>Elf</option>
+              <option>Halfelf</option>
+              <option>Dwerg</option>
+              <option>Ork</option>
+              <option>Draakgeboren</option>
+              <option>Tiefling</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Klasse</label>
+            <select id="regClass">
+              <option>Krijger</option>
+              <option>Magiër</option>
+              <option>Schurk</option>
+              <option>Paladijn</option>
+              <option>Jager</option>
+              <option>Bard</option>
+              <option>Druïde</option>
+            </select>
+          </div>
         </div>
         <div class="field">
-          <label>Klasse</label>
-          <select>
-            <option>Krijger</option>
-            <option selected>Magiër</option>
-            <option>Schurk</option>
-            <option>Paladijn</option>
-            <option>Jager</option>
-            <option>Bard</option>
-            <option>Druïde</option>
-            <option>Monnik</option>
-          </select>
+          <label>Beveiligingscode (4 cijfers)</label>
+          <input type="text" id="regPin" placeholder="Bijv. 1234" maxlength="4">
         </div>
-        <div class="field">
-          <label>Leeftijd</label>
-          <input type="number" placeholder="27" value="127">
-        </div>
-        <div class="field">
-          <label>Afkomst</label>
-          <input type="text" placeholder="Bijv. Zilverwoud">
+
+        <div id="regError" class="error-msg hidden"></div>
+
+        <div style="text-align:center;margin-top:1.5rem;">
+          <button class="btn" onclick="register()">⚔️ Registreer Karakter</button>
         </div>
       </div>
-    </div>
-
-    <!-- HP & XP -->
-    <div class="section">
-      <h2><span class="icon">❤️</span> Levenskracht & Ervaring</h2>
-      <div class="hp-container">
-        <div class="hp-labels">
-          <span>HP</span>
-          <span>75 / 100</span>
-        </div>
-        <div class="hp-bar">
-          <div class="hp-fill" style="width: 75%"></div>
-          <span class="hp-text">75 / 100</span>
-        </div>
-      </div>
-      <div class="hp-container">
-        <div class="hp-labels">
-          <span>XP</span>
-          <span>4500 / 10000</span>
-        </div>
-        <div class="xp-bar">
-          <div class="xp-fill" style="width: 45%"></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Stats -->
-    <div class="section">
-      <h2><span class="icon">⚡</span> Statistieken</h2>
-      <div class="stats-grid">
-        <div class="stat">
-          <div class="stat-name">Kracht</div>
-          <input type="number" value="14">
-          <div class="stat-mod">+2</div>
-        </div>
-        <div class="stat">
-          <div class="stat-name">Behendigheid</div>
-          <input type="number" value="12">
-          <div class="stat-mod">+1</div>
-        </div>
-        <div class="stat">
-          <div class="stat-name">Intelligentie</div>
-          <input type="number" value="18">
-          <div class="stat-mod">+4</div>
-        </div>
-        <div class="stat">
-          <div class="stat-name">Wijsheid</div>
-          <input type="number" value="13">
-          <div class="stat-mod">+1</div>
-        </div>
-        <div class="stat">
-          <div class="stat-name">Charisma</div>
-          <input type="number" value="15">
-          <div class="stat-mod">+2</div>
-        </div>
-        <div class="stat">
-          <div class="stat-name">Uithouding</div>
-          <input type="number" value="10">
-          <div class="stat-mod">+0</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Vaardigheden -->
-    <div class="section">
-      <h2><span class="icon">✨</span> Vaardigheden</h2>
-      <ul class="skills-list">
-        <li><input type="checkbox" checked><span>Vuurmagie</span></li>
-        <li><input type="checkbox" checked><span>IJsmagie</span></li>
-        <li><input type="checkbox"><span>Necromantie</span></li>
-        <li><input type="checkbox" checked><span>Alchemie</span></li>
-        <li><input type="checkbox"><span>Zwaardvechten</span></li>
-        <li><input type="checkbox"><span>Sluipen</span></li>
-        <li><input type="checkbox" checked><span>Genezing</span></li>
-        <li><input type="checkbox"><span>Dierenspraak</span></li>
-        <li><input type="checkbox"><span>Illusies</span></li>
-        <li><input type="checkbox" checked><span>Runenkennis</span></li>
-      </ul>
-    </div>
-
-    <!-- Inventaris -->
-    <div class="section">
-      <h2><span class="icon">🎒</span> Inventaris</h2>
-      <div class="inventory-grid">
-        <div class="inv-slot filled">⚔️<span class="tooltip">Maanlichtzwaard</span></div>
-        <div class="inv-slot filled">🛡️<span class="tooltip">Eikenschild</span></div>
-        <div class="inv-slot filled">🧪<span class="tooltip">Genezingsdrank</span></div>
-        <div class="inv-slot filled">📖<span class="tooltip">Spreukenboek</span></div>
-        <div class="inv-slot filled">💎<span class="tooltip">Zielsteen</span></div>
-        <div class="inv-slot filled">🗝️<span class="tooltip">Oude Sleutel</span></div>
-        <div class="inv-slot filled">🍞<span class="tooltip">Elfenbrood</span></div>
-        <div class="inv-slot">
-        </div>
-        <div class="inv-slot">
-        </div>
-        <div class="inv-slot">
-        </div>
-        <div class="inv-slot">
-        </div>
-        <div class="inv-slot">
-        </div>
-      </div>
-    </div>
-
-    <!-- Achtergrond -->
-    <div class="section">
-      <h2><span class="icon">📖</span> Achtergrondverhaal</h2>
-      <textarea placeholder="Vertel het verhaal van uw personage... Waar komt u vandaan? Wat drijft u voort op uw reis?">Geboren in de Zilverwouden, werd Arion op jonge leeftijd ontdekt door de Orde van de Eeuwige Vlam. Zijn natuurlijke affiniteit met de arcane kunsten maakte hem snel een leerling van Aartsmagiër Thalindra. Na de val van de Kristallen Toren zwoer hij de verloren kennis terug te vinden...</textarea>
-    </div>
-
-    <!-- Notities -->
-    <div class="section">
-      <h2><span class="icon">🪶</span> Notities</h2>
-      <textarea placeholder="Quests, aanwijzingen, bondgenoten..."></textarea>
-    </div>
-
-    <div class="divider">⟡ ⟡ ⟡ ⟡ ⟡</div>
-
-    <!-- Dice Roller -->
-    <div class="section dice-section">
-      <h2><span class="icon">🎲</span> Dobbelsteen</h2>
-      <div style="display: flex; gap: 0.5rem; justify-content: center; flex-wrap: wrap; margin-bottom: 1rem;">
-        <button class="dice-btn" onclick="rollDice(4)">D4</button>
-        <button class="dice-btn" onclick="rollDice(6)">D6</button>
-        <button class="dice-btn" onclick="rollDice(8)">D8</button>
-        <button class="dice-btn" onclick="rollDice(10)">D10</button>
-        <button class="dice-btn" onclick="rollDice(12)">D12</button>
-        <button class="dice-btn" onclick="rollDice(20)">D20</button>
-      </div>
-      <div class="dice-result" id="diceResult">—</div>
     </div>
   </div>
 
-  <script>
-    function rollDice(sides) {
-      const el = document.getElementById('diceResult');
-      el.className = 'dice-result rolling';
-      el.textContent = '🎲';
+  <!-- ==================== MAIN APP ==================== -->
+  <div id="mainApp" class="hidden">
+    <div class="container">
 
-      let rolls = 0;
-      const maxRolls = 15;
-      const interval = setInterval(() => {
-        el.textContent = Math.floor(Math.random() * sides) + 1;
-        rolls++;
-        if (rolls >= maxRolls) {
-          clearInterval(interval);
-          const result = Math.floor(Math.random() * sides) + 1;
-          el.textContent = result;
-          el.className = 'dice-result';
-          if (result === sides) {
-            el.classList.add('crit');
-            el.textContent = result + ' ✦ CRIT!';
+      <!-- Profile Bar -->
+      <div class="profile-bar">
+        <div class="profile-info">
+          <div class="profile-avatar" id="profileAvatar">⚔️</div>
+          <div>
+            <div class="profile-name" id="profileName">-</div>
+            <div class="profile-title" id="profileTitle">-</div>
+          </div>
+        </div>
+        <div class="profile-balance">💰 <span id="profileTotalMoney">0</span> goud</div>
+        <button class="btn btn-sm btn-danger" onclick="logout()">Uitloggen</button>
+      </div>
+
+      <!-- Navigation -->
+      <div class="nav">
+        <button class="nav-btn active" onclick="showTab('finance', this)">💰 Financiën</button>
+        <button class="nav-btn" onclick="showTab('dealer', this)">🚗 Autohandel</button>
+        <button class="nav-btn" onclick="showTab('garage', this)">🏠 Garage</button>
+        <button class="nav-btn" onclick="showTab('alarm', this)">🚨 Alarm Centraal</button>
+      </div>
+
+      <!-- ============ FINANCE TAB ============ -->
+      <div id="tab-finance" class="tab-content">
+        <div class="panel">
+          <div class="corner corner-tl"></div>
+          <div class="corner corner-tr"></div>
+          <div class="corner corner-bl"></div>
+          <div class="corner corner-br"></div>
+
+          <h2>💰 Financieel Overzicht</h2>
+
+          <div class="finance-grid">
+            <div class="finance-card">
+              <div class="label">Contant Geld</div>
+              <div class="amount cash" id="cashAmount">500</div>
+              <div class="label">goudstukken</div>
+            </div>
+            <div class="finance-card">
+              <div class="label">Bank Saldo</div>
+              <div class="amount bank" id="bankAmount">2000</div>
+              <div class="label">goudstukken</div>
+            </div>
+            <div class="finance-card">
+              <div class="label">Dagelijks Salaris</div>
+              <div class="amount" id="salaryAmount">150</div>
+              <div class="label">goud / dag</div>
+            </div>
+            <div class="finance-card">
+              <div class="label">Totaal Vermogen</div>
+              <div class="amount" id="totalWealth">2500</div>
+              <div class="label">goudstukken</div>
+            </div>
+          </div>
+
+          <div class="divider">⟡ ⟡ ⟡</div>
+
+          <h3>💱 Geld Overmaken</h3>
+          <div class="transfer-section">
+            <div class="field">
+              <label>Bedrag</label>
+              <input type="number" id="transferAmount" placeholder="100" min="1">
+            </div>
+            <div class="field">
+              <label>Richting</label>
+              <select id="transferDirection">
+                <option value="toBank">Contant → Bank</option>
+                <option value="toCash">Bank → Contant</option>
+              </select>
+            </div>
+            <button class="btn btn-sm" onclick="transferMoney()">Overmaken</button>
+          </div>
+
+          <div style="text-align:center;margin-top:1rem;">
+            <button class="btn btn-sm btn-success" onclick="collectSalary()">📥 Dagelijks Salaris Ophalen</button>
+          </div>
+
+          <div class="divider">⟡ ⟡ ⟡</div>
+
+          <h3>📜 Economie Logboek</h3>
+          <div style="overflow-x:auto;">
+            <table class="log-table">
+              <thead>
+                <tr>
+                  <th>Tijd</th>
+                  <th>Type</th>
+                  <th>Beschrijving</th>
+                  <th>Bedrag</th>
+                </tr>
+              </thead>
+              <tbody id="economyLog"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============ DEALER TAB ============ -->
+      <div id="tab-dealer" class="tab-content hidden">
+        <div class="panel">
+          <div class="corner corner-tl"></div>
+          <div class="corner corner-tr"></div>
+          <div class="corner corner-bl"></div>
+          <div class="corner corner-br"></div>
+
+          <h2>🚗 Koninklijke Autohandel</h2>
+          <p class="subtitle" style="margin-bottom:1.5rem;">De beste rijtuigen van het koninkrijk</p>
+
+          <div class="car-grid" id="carGrid"></div>
+        </div>
+      </div>
+
+      <!-- ============ GARAGE TAB ============ -->
+      <div id="tab-garage" class="tab-content hidden">
+        <div class="panel">
+          <div class="corner corner-tl"></div>
+          <div class="corner corner-tr"></div>
+          <div class="corner corner-bl"></div>
+          <div class="corner corner-br"></div>
+
+          <h2>🏠 Mijn Garage</h2>
+          <div id="garageList">
+            <p style="text-align:center;color:rgba(212,197,169,0.4);font-style:italic;">
+              Je hebt nog geen voertuigen. Bezoek de autohandel!
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============ ALARM TAB ============ -->
+      <div id="tab-alarm" class="tab-content hidden">
+        <div class="panel">
+          <div class="corner corner-tl"></div>
+          <div class="corner corner-tr"></div>
+          <div class="corner corner-bl"></div>
+          <div class="corner corner-br"></div>
+
+          <h2>🚨 Alarm Centraal Systeem</h2>
+
+          <!-- Alarm Status -->
+          <div class="alarm-status disarmed" id="alarmStatus">
+            <div class="alarm-icon" id="alarmIcon">🟢</div>
+            <div class="alarm-status-text" id="alarmStatusText">Uitgeschakeld</div>
+            <div class="alarm-time" id="alarmTime"></div>
+          </div>
+
+          <!-- PIN Pad -->
+          <div id="pinSection">
+            <h3 style="text-align:center;">🔐 Voer Beveiligingscode In</h3>
+            <div class="pin-display" id="pinDisplay">_ _ _ _</div>
+            <div class="keypad">
+              <button class="key-btn" onclick="pressKey('1')">1</button>
+              <button class="key-btn" onclick="pressKey('2')">2</button>
+              <button class="key-btn" onclick="pressKey('3')">3</button>
+              <button class="key-btn" onclick="pressKey('4')">4</button>
+              <button class="key-btn" onclick="pressKey('5')">5</button>
+              <button class="key-btn" onclick="pressKey('6')">6</button>
+              <button class="key-btn" onclick="pressKey('7')">7</button>
+              <button class="key-btn" onclick="pressKey('8')">8</button>
+              <button class="key-btn" onclick="pressKey('9')">9</button>
+              <button class="key-btn" onclick="clearPin()">✕</button>
+              <button class="key-btn" onclick="pressKey('0')">0</button>
+              <button class="key-btn" onclick="submitPin()">✓</button>
+            </div>
+          </div>
+
+          <!-- Alarm Controls (hidden until authenticated) -->
+          <div id="alarmControls" class="hidden">
+            <div class="alarm-controls">
+              <button class="btn btn-success btn-sm" onclick="setAlarm('arm')">🛡️ Inschakelen</button>
+              <button class="btn btn-sm" onclick="setAlarm('disarm')">🔓 Uitschakelen</button>
+              <button class="btn btn-danger btn-sm" onclick="setAlarm('panic')">🚨 Paniek Alarm</button>
+              <button class="btn btn-sm" onclick="testAlarm()">🔔 Test Sirene</button>
+            </div>
+
+            <div class="divider">⟡ ⟡ ⟡</div>
+
+            <h3>🏠 Beveiligingszones</h3>
+            <div class="zone-grid" id="zoneGrid"></div>
+
+            <div class="divider">⟡ ⟡ ⟡</div>
+
+            <h3>📋 Alarm Logboek</h3>
+            <div class="alarm-log" id="alarmLog"></div>
+
+            <div style="text-align:center;margin-top:1rem;">
+              <button class="btn btn-sm" onclick="lockAlarmPanel()">🔒 Paneel Vergrendelen</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ALARM SOUND (hidden audio) -->
+  <audio id="alarmSound" loop>
+    <source src="data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEARKwAAIhYAQACABAAZGF0YQAAAAA=" type="audio/wav">
+  </audio>
+
+  <script>
+    // ==================== STATE ====================
+    let player = null;
+    let cash = 500;
+    let bank = 2000;
+    let salary = 150;
+    let salaryCollected = false;
+    let ownedCars = [];
+    let economyLogs = [];
+    let alarmLogs = [];
+    let alarmState = 'disarmed'; // disarmed, armed, triggered
+    let pinInput = '';
+    let alarmAuthenticated = false;
+    let zones = [
+      { id: 1, name: 'Voordeur', icon: '🚪', active: true, alert: false },
+      { id: 2, name: 'Achterdeur', icon: '🚪', active: true, alert: false },
+      { id: 3, name: 'Woonkamer', icon: '🛋️', active: true, alert: false },
+      { id: 4, name: 'Slaapkamer', icon: '🛏️', active: true, alert: false },
+      { id: 5, name: 'Keuken', icon: '🍳', active: false, alert: false },
+      { id: 6, name: 'Garage', icon: '🏠', active: true, alert: false },
+      { id: 7, name: 'Tuin', icon: '🌳', active: true, alert: false },
+      { id: 8, name: 'Kelder', icon: '🪨', active: false, alert: false },
+      { id: 9, name: 'Ramen Boven', icon: '🪟', active: true, alert: false },
+      { id: 10, name: 'Bewegingssensor', icon: '📡', active: true, alert: false },
+      { id: 11, name: 'Rookmelder', icon: '🔥', active: true, alert: false },
+      { id: 12, name: 'Camera Systeem', icon: '📹', active: true, alert: false }
+    ];
+
+    const cars = [
+      { id: 1, name: 'Stalen Strijdwagen', icon: '🐴', desc: 'Een robuuste wagen bekleed met staalplaten. Ideaal voor lange reizen door gevaarlijk gebied.', speed: '40 km/u', power: '2 PK', year: 'Jaar 1247', stars: 3, price: 800 },
+      { id: 2, name: 'Elfenwoud Koets', icon: '🌿', desc: 'Handgemaakt door elfenambachtslieden uit het Zilverwoud. Fluisterstil en sierlijk.', speed: '55 km/u', power: '4 PK', year: 'Jaar 1251', stars: 4, price: 1500 },
+      { id: 3, name: 'Drakenvlam Chariot', icon: '🔥', desc: 'Aangedreven door gebonden vuurelementalen. De snelste wagen in het koninkrijk.', speed: '120 km/u', power: '50 DK', year: 'Jaar 1255', stars: 5, price: 5000 },
+      { id: 4, name: 'Schaduw Rijtuig', icon: '🌑', desc: 'Een mysterieus voertuig uit de Schaduwlanden. Wordt onzichtbaar bij maanlicht.', speed: '70 km/u', power: '15 DK', year: 'Jaar 1249', stars: 4, price: 3000 },
+      { id: 5, name: 'Dwergen Stoomwagen', icon: '⚙️', desc: 'Gebouwd in de smederijen van Khazad-Heim. Draait op magische stoomkristallen.', speed: '45 km/u', power: '30 DK', year: 'Jaar 1253', stars: 3, price: 1200 },
+      { id: 6, name: 'Koninklijke Gouden Koets', icon: '👑', desc: 'Het pronkstuk van de koninklijke stallen. Puur goud met diamanten versiering. Legendarisch.', speed: '35 km/u', power: '6 PK', year: 'Jaar 1240', stars: 5, price: 10000 },
+      { id: 7, name: 'Windrider Slee', icon: '💨', desc: 'Zweeft boven de grond door windmagie. Kan kleine ravijnen oversteken.', speed: '90 km/u', power: '25 DK', year: 'Jaar 1254', stars: 4, price: 4000 },
+      { id: 8, name: 'Boerenkar Deluxe', icon: '🌾', desc: 'Eenvoudig maar betrouwbaar. Wordt geleverd met een geduldige ezel genaamd Bertus.', speed: '15 km/u', power: '1 PK', year: 'Jaar 1230', stars: 2, price: 300 }
+    ];
+
+    // ==================== REGISTRATION ====================
+    function register() {
+      const firstName = document.getElementById('regFirstName').value.trim();
+      const lastName = document.getElementById('regLastName').value.trim();
+      const birthdate = document.getElementById('regBirthdate').value;
+      const race = document.getElementById('regRace').value;
+      const charClass = document.getElementById('regClass').value;
+      const pin = document.getElementById('regPin').value.trim();
+
+      const errEl = document.getElementById('regError');
+
+      if (!firstName) { showRegError('Vul uw voornaam in.'); return; }
+      if (!lastName) { showRegError('Vul uw achternaam in.'); return; }
+      if (!birthdate) { showRegError('Selecteer uw geboortedatum.'); return; }
+      if (!pin || pin.length !== 4 || isNaN(pin)) { showRegError('Voer een geldige 4-cijferige code in.'); return; }
+
+      player = {
+        firstName, lastName, birthdate, race, class: charClass, pin,
+        registered: new Date().toLocaleString('nl-NL')
+      };
+
+      errEl.classList.add('hidden');
+      document.getElementById('registerScreen').classList.add('hidden');
+      document.getElementById('mainApp').classList.remove('hidden');
+
+      initApp();
+      showToast('success', `⚔️ Welkom, ${player.firstName} ${player.lastName}! Uw karakter is geregistreerd.`);
+      addEconomyLog('💰', 'Startkapitaal', 500, 'cash');
+      addEconomyLog('🏦', 'Bank startbedrag', 2000, 'bank');
+    }
+
+    function showRegError(msg) {
+      const el = document.getElementById('regError');
+      el.textContent = msg;
+      el.classList.remove('hidden');
+    }
+
+    function logout() {
+      if (confirm('Weet u zeker dat u wilt uitloggen?')) {
+        document.getElementById('mainApp').classList.add('hidden');
+        document.getElementById('registerScreen').classList.remove('hidden');
+        player = null;
+        cash = 500;
+        bank = 2000;
+        ownedCars = [];
+        economyLogs = [];
+        alarmLogs = [];
+        salaryCollected = false;
+        alarmState = 'disarmed';
+        alarmAuthenticated = false;
+        pinInput = '';
+      }
+    }
+
+    // ==================== INIT APP ====================
+    function initApp() {
+      document.getElementById('profileName').textContent = `${player.firstName} ${player.lastName}`;
+      document.getElementById('profileTitle').textContent = `${player.race} ${player.class} — Geboren: ${formatDate(player.birthdate)}`;
+      document.getElementById('profileAvatar').textContent = getRaceEmoji(player.race);
+      updateFinance();
+      renderCars();
+      renderZones();
+      updateAlarmStatus();
+      startAlarmClock();
+    }
+
+    function getRaceEmoji(race) {
+      const map = { 'Mens': '🧑', 'Elf': '🧝', 'Halfelf': '🧝', 'Dwerg': '⛏️', 'Ork': '👹', 'Draakgeboren': '🐉', 'Tiefling': '😈' };
+      return map[race] || '⚔️';
+    }
+
+    function formatDate(d) {
+      const parts = d.split('-');
+      return `${parts[2]}/${parts[1]}/${parts[0]}`;
+    }
+
+    // ==================== TABS ====================
+    function showTab(tabName, btnEl) {
+      document.querySelectorAll('.tab-content').forEach(t => t.classList.add('hidden'));
+      document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+      document.getElementById('tab-' + tabName).classList.remove('hidden');
+      if (btnEl) btnEl.classList.add('active');
+    }
+
+    // ==================== FINANCE ====================
+    function updateFinance() {
+      document.getElementById('cashAmount').textContent = cash.toLocaleString();
+      document.getElementById('bankAmount').textContent = bank.toLocaleString();
+      document.getElementById('salaryAmount').textContent = salary.toLocaleString();
+      document.getElementById('totalWealth').textContent = (cash + bank).toLocaleString();
+      document.getElementById('profileTotalMoney').textContent = (cash + bank).toLocaleString();
+    }
+
+    function transferMoney() {
+      const amount = parseInt(document.getElementById('transferAmount').value);
+      const dir = document.getElementById('transferDirection').value;
+
+      if (!amount || amount <= 0) { showToast('error', '❌ Voer een geldig bedrag in.'); return; }
+
+      if (dir === 'toBank') {
+        if (amount > cash) { showToast('error', '❌ Niet genoeg contant geld!'); return; }
+        cash -= amount;
+        bank += amount;
+        addEconomyLog('🏦', `Storting naar bank`, amount, 'transfer');
+        showToast('success', `✅ ${amount} goud gestort naar bank.`);
+      } else {
+        if (amount > bank) { showToast('error', '❌ Niet genoeg banksaldo!'); return; }
+        bank -= amount;
+        cash += amount;
+        addEconomyLog('💵', `Opname van bank`, amount, 'transfer');
+        showToast('success', `✅ ${amount} goud opgenomen van bank.`);
+      }
+
+      document.getElementById('transferAmount').value = '';
+      updateFinance();
+    }
+
+    function collectSalary() {
+      if (salaryCollected) {
+        showToast('warning', '⚠️ Je hebt je salaris vandaag al opgehaald!');
+        return;
+      }
+      bank += salary;
+      salaryCollected = true;
+      addEconomyLog('📥', `Dagelijks salaris ontvangen`, salary, 'salary');
+      showToast('success', `✅ ${salary} goud salaris ontvangen op je bankrekening!`);
+      updateFinance();
+
+      // Reset after 60 seconds for demo
+      setTimeout(() => { salaryCollected = false; }, 60000);
+    }
+
+    function addEconomyLog(type, desc, amount, category) {
+      const now = new Date();
+      const time = now.toLocaleTimeString('nl-NL', { hour: '2-digit', minute: '2-digit' });
+      economyLogs.unshift({ time, type, desc, amount, category });
+      renderEconomyLog();
+    }
+
+    function renderEconomyLog() {
+      const tbody = document.getElementById('economyLog');
+      tbody.innerHTML = economyLogs.map(log => `
+        <tr>
+          <td style="color:rgba(212,197,169,0.5);font-size:0.8rem;">${log.time}</td>
+          <td>${log.type}</td>
+          <td>${log.desc}</td>
+          <td class="${log.category === 'purchase' ? 'log-negative' : 'log-positive'}">
+            ${log.category === 'purchase' ? '-' : '+'}${log.amount.toLocaleString()} 💰
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    // ==================== CAR DEALER ====================
+    function renderCars() {
+      const grid = document.getElementById('carGrid');
+      grid.innerHTML = cars.map(car => {
+        const owned = ownedCars.includes(car.id);
+        const canAfford = (cash + bank) >= car.price;
+        const starsHtml = renderStars(car.stars);
+
+        return `
+          <div class="car-card">
+            <div class="car-img">${car.icon}</div>
+            <div class="car-info">
+              <div class="car-name">${car.name}</div>
+              <div class="car-desc">${car.desc}</div>
+              <div class="car-specs">
+                <span>⚡ ${car.speed}</span>
+                <span>🐴 ${car.power}</span>
+                <span>📅 ${car.year}</span>
+              </div>
+              <div class="car-stars">${starsHtml}</div>
+              <div class="car-bottom">
+                <div class="car-price">${car.price.toLocaleString()} 💰</div>
+                ${owned
+                  ? '<span class="car-owned">✅ In Bezit</span>'
+                  : `<button class="btn btn-sm ${canAfford ? 'btn-success' : 'btn-danger'}" onclick="buyCar(${car.id})" ${!canAfford ? 'title="Niet genoeg goud!"' : ''}>
+                      ${canAfford ? '🛒 Kopen' : '🚫 Te duur'}
+                    </button>`
+                }
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function renderStars(count) {
+      let html = '';
+      for (let i = 0; i < 5; i++) {
+        html += i < count ? '★' : '<span class="empty">★</span>';
+      }
+      return html;
+    }
+
+    function buyCar(carId) {
+      const car = cars.find(c => c.id === carId);
+      if (!car) return;
+      if (ownedCars.includes(carId)) { showToast('warning', '⚠️ Je bezit deze auto al!'); return; }
+
+      const total = cash + bank;
+      if (total < car.price) {
+        showToast('error', `❌ Niet genoeg goud! Je hebt ${total.toLocaleString()} maar hebt ${car.price.toLocaleString()} nodig.`);
+        return;
+      }
+
+      if (!confirm(`Wil je de "${car.name}" kopen voor ${car.price.toLocaleString()} goud?`)) return;
+
+      // Pay from cash first, then bank
+      let remaining = car.price;
+      if (cash >= remaining) {
+        cash -= remaining;
+      } else {
+        remaining -= cash;
+        cash = 0;
+        bank -= remaining;
+      }
+
+      ownedCars.push(carId);
+      addEconomyLog('🚗', `${car.name} gekocht`, car.price, 'purchase');
+      showToast('success', `🚗 ${car.name} gekocht! Bekijk je garage.`);
+      updateFinance();
+      renderCars();
+      renderGarage();
+    }
+
+    function renderGarage() {
+      const list = document.getElementById('garageList');
+      if (ownedCars.length === 0) {
+        list.innerHTML = '<p style="text-align:center;color:rgba(212,197,169,0.4);font-style:italic;">Je hebt nog geen voertuigen. Bezoek de autohandel!</p>';
+        return;
+      }
+
+      list.innerHTML = ownedCars.map(id => {
+        const car = cars.find(c => c.id === id);
+        return `
+          <div class="my-car">
+            <div class="my-car-icon">${car.icon}</div>
+            <div>
+              <div class="my-car-name">${car.name}</div>
+              <div class="my-car-value">Waarde: ${car.price.toLocaleString()} goud — ${renderStars(car.stars)}</div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    // ==================== ALARM SYSTEM ====================
+    function startAlarmClock() {
+      setInterval(() => {
+        const now = new Date();
+        document.getElementById('alarmTime').textContent = now.toLocaleTimeString('nl-NL');
+      }, 1000);
+    }
+
+    function pressKey(num) {
+      if (pinInput.length >= 4) return;
+      pinInput += num;
+      updatePinDisplay();
+    }
+
+    function clearPin() {
+      pinInput = '';
+      updatePinDisplay();
+    }
+
+    function updatePinDisplay() {
+      const display = document.getElementById('pinDisplay');
+      let dots = '';
+      for (let i = 0; i < 4; i++) {
+        dots += i < pinInput.length ? '● ' : '_ ';
+      }
+      display.textContent = dots.trim();
+    }
+
+    function submitPin() {
+      if (pinInput.length !== 4) {
+        showToast('error', '❌ Voer 4 cijfers in.');
+        return;
+      }
+
+      if (pinInput === player.pin) {
+        alarmAuthenticated = true;
+        document.getElementById('pinSection').classList.add('hidden');
+        document.getElementById('alarmControls').classList.remove('hidden');
+        addAlarmLog('🔓', 'Paneel ontgrendeld', 'success');
+        showToast('success', '🔓 Alarm paneel ontgrendeld!');
+      } else {
+        showToast('error', '❌ Onjuiste beveiligingscode!');
+        addAlarmLog('⚠️', 'Mislukte inlogpoging', 'warning');
+        pinInput = '';
+        updatePinDisplay();
+
+        // Flash red
+        const display = document.getElementById('pinDisplay');
+        display.style.color = '#dc143c';
+        setTimeout(() => display.style.color = '#b8860b', 1000);
+      }
+    }
+
+    function lockAlarmPanel() {
+      alarmAuthenticated = false;
+      pinInput = '';
+      updatePinDisplay();
+      document.getElementById('pinSection').classList.remove('hidden');
+      document.getElementById('alarmControls').classList.add('hidden');
+      addAlarmLog('🔒', 'Paneel vergrendeld', 'info');
+      showToast('success', '🔒 Alarm paneel vergrendeld.');
+    }
+
+    function setAlarm(mode) {
+      if (mode === 'arm') {
+        alarmState = 'armed';
+        addAlarmLog('🛡️', 'Alarm ingeschakeld', 'success');
+        showToast('success', '🛡️ Alarm is ingeschakeld!');
+
+        // Simulate random zone trigger after 10-30 seconds
+        const delay = Math.random() * 20000 + 10000;
+        setTimeout(() => {
+          if (alarmState === 'armed') {
+            const activeZones = zones.filter(z => z.active);
+            if (activeZones.length > 0) {
+              const randomZone = activeZones[Math.floor(Math.random() * activeZones.length)];
+              triggerZone(randomZone.id);
+            }
           }
-          if (result === 1) {
-            el.style.color = '#8b0000';
-            el.textContent = result + ' — Fail...';
-            setTimeout(() => el.style.color = '', 2000);
-          }
-        }
-      }, 60);
+        }, delay);
+
+      } else if (mode === 'disarm') {
+        alarmState = 'disarmed';
+        zones.forEach(z => z.alert = false);
+        addAlarmLog('🔓', 'Alarm uitgeschakeld', 'info');
+        showToast('success', '🔓 Alarm is uitgeschakeld.');
+        renderZones();
+
+      } else if (mode === 'panic') {
+        alarmState = 'triggered';
+        addAlarmLog('🚨', '⚠️ PANIEK ALARM GEACTIVEERD!', 'danger');
+        showToast('alarm', '🚨 PANIEK ALARM! Alle eenheden gewaarschuwd!');
+      }
+
+      updateAlarmStatus();
+    }
+
+    function testAlarm() {
+      const prevState = alarmState;
+      alarmState = 'triggered';
+      updateAlarmStatus();
+      addAlarmLog('🔔', 'Sirene test gestart', 'info');
+      showToast('warning', '🔔 Sirene test — 3 seconden...');
+
+      setTimeout(() => {
+        alarmState = prevState;
+        updateAlarmStatus();
+        addAlarmLog('🔔', 'Sirene test voltooid', 'success');
+      }, 3000);
+    }
+
+    function triggerZone(zoneId) {
+      const zone = zones.find(z => z.id === zoneId);
+      if (!zone || !zone.active) return;
+
+      zone.alert = true;
+      alarmState = 'triggered';
+      addAlarmLog('🚨', `ALERT: ${zone.icon} ${zone.name} — Beweging gedetecteerd!`, 'danger');
+      showToast('alarm', `🚨 ALARM: ${zone.name} — Indringer gedetecteerd!`);
+      updateAlarmStatus();
+      renderZones();
+    }
+
+    function updateAlarmStatus() {
+      const statusEl = document.getElementById('alarmStatus');
+      const iconEl = document.getElementById('alarmIcon');
+      const textEl = document.getElementById('alarmStatusText');
+
+      statusEl.className = 'alarm-status ' + alarmState;
+
+      if (alarmState === 'disarmed') {
+        iconEl.textContent = '🟢';
+        textEl.textContent = 'Uitgeschakeld';
+      } else if (alarmState === 'armed') {
+        iconEl.textContent = '🔵';
+        textEl.textContent = 'Ingeschakeld';
+      } else if (alarmState === 'triggered') {
+        iconEl.textContent = '🔴';
+        textEl.textContent = '⚠️ ALARM GEACTIVEERD ⚠️';
+      }
+    }
+
+    function renderZones() {
+      const grid = document.getElementById('zoneGrid');
+      grid.innerHTML = zones.map(zone => `
+        <div class="zone-card ${zone.active ? 'active' : ''} ${zone.alert ? 'alert' : ''}" onclick="toggleZone(${zone.id})">
+          <span class="zone-icon">${zone.icon}</span>
+          <div>
+            <div class="zone-name">${zone.name}</div>
+            <div class="zone-status-text ${zone.alert ? 'alert-text' : (zone.active ? 'ok' : 'off')}">
+              ${zone.alert ? '⚠️ ALERT' : (zone.active ? '● Actief' : '○ Uit')}
+            </div>
+          </div>
+          <div class="zone-toggle ${zone.active ? 'on' : ''}"></div>
+        </div>
+      `).join('');
+    }
+
+    function toggleZone(zoneId) {
+      const zone = zones.find(z => z.id === zoneId);
+      if (!zone) return;
+      zone.active = !zone.active;
+      zone.alert = false;
+      addAlarmLog(zone.icon, `${zone.name} ${zone.active ? 'ingeschakeld' : 'uitgeschakeld'}`, zone.active ? 'success' : 'info');
+      renderZones();
+    }
+
+    function addAlarmLog(icon, message, type) {
+      const now = new Date();
+      const time = now.toLocaleTimeString('nl-NL', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+      alarmLogs.unshift({ time, icon, message, type });
+      renderAlarmLog();
+    }
+
+    function renderAlarmLog() {
+      const el = document.getElementById('alarmLog');
+      el.innerHTML = alarmLogs.map(log => {
+        let color = '#d4c5a9';
+        if (log.type === 'success') color = '#32cd32';
+        if (log.type === 'danger') color = '#dc143c';
+        if (log.type === 'warning') color = '#ffa500';
+        if (log.type === 'info') color = '#4169e1';
+
+        return `
+          <div class="alarm-log-entry">
+            <span class="alarm-log-time">${log.time}</span>
+            <span class="alarm-log-type">${log.icon}</span>
+            <span style="color:${color};">${log.message}</span>
+          </div>
+        `;
+      }).join('');
+    }
+
+    // ==================== TOAST NOTIFICATIONS ====================
+    function showToast(type, message) {
+      const container = document.getElementById('toastContainer');
+      const toast = document.createElement('div');
+      toast.className = `toast ${type}`;
+      toast.innerHTML = message;
+      container.appendChild(toast);
+
+      setTimeout(() => {
+        toast.style.opacity = '0';
+        toast.style.transform = 'translateX(100%)';
+        toast.style.transition = 'all 0.3s ease';
+        setTimeout(() => toast.remove(), 300);
+      }, type === 'alarm' ? 5000 : 3000);
     }
   </script>
 
